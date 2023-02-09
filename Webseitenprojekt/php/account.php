@@ -3,8 +3,9 @@
 //Eingaben validieren ----------------------------------------------------------------------
 function isValidPassword( $password ){
 	 
-    if( !preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{10,}$/", $password ))
+    if( !preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{10,}$/", $password ))	
 	{		
+		//wenn s kein match mit derm user passwort gibt
 		userMessage('Bitte gib gültiges Password an!');
 		return false;
 	}	
@@ -13,8 +14,9 @@ function isValidPassword( $password ){
 
 function isValidNick( $nick ){
 	 
-    if( empty($nick) )
+    if( empty($nick) )	//wenn es leer ist
 	{		
+		//dem nutzer wird eine Nachricht ausgegeben dass er das richtige format für einen Namen verwenden soll
 		userMessage('Bitte gib gültigen Nick an!');
 		return false;
 	}	
@@ -23,8 +25,9 @@ function isValidNick( $nick ){
 
 function isValidEmail( $email ){
 	
-	if( !filter_var( $email, FILTER_VALIDATE_EMAIL) )
+	if( !filter_var( $email, FILTER_VALIDATE_EMAIL) )	//Es wird überprüft ob das vom Nutzer eigegebene, nicht der form einer e-mail entspricht
 	{		
+		//Dem nutzer wir benachrichtigt eine email einzugeben
 		userMessage('Bitte gib eine Email Adresse ein!');
 		return false;
 	}	
@@ -36,13 +39,12 @@ function isValidEmail( $email ){
 
 //Register
 
-function register($nick, $email, $password){
+function register($nick, $email, $password){	//es werden eigegebener nick email und passwort übergeben
 	
-	if( !emailIsUnique($email) || !nickIsUnique($nick))
-		return false;
-		
-	$conn = dbConnect();
-	
+	if( !emailIsUnique($email) || !nickIsUnique($nick))	//wenn die e-mail/der nick schonmal verwendet wurde wird false zurückgegeben
+			return false;
+			
+	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 	$passwordHash = password_hash( $password, PASSWORD_DEFAULT);
 	
 	try{
@@ -75,7 +77,7 @@ function register($nick, $email, $password){
 
 function login($nick, $password){
 	
-	$conn = dbConnect();
+	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 	
 	try{
 		$query = $conn->prepare('SELECT  id, nick, userpassword, access, EdgeCoins
@@ -147,7 +149,7 @@ function login($nick, $password){
 }
 
 function emailIsUnique( $email ){
-	$conn = dbConnect();
+	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 	
 	try{
 		$query = $conn->prepare('SELECT id FROM users WHERE email = ? ;');
@@ -174,7 +176,7 @@ function emailIsUnique( $email ){
 }
 
 function nickIsUnique($nick){
-	$conn = dbConnect();
+	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 	
 	try{
 		$query = $conn->prepare('SELECT id FROM users WHERE nick = ? ;');

@@ -5,7 +5,7 @@ function addProduct( $productId, $name, $description, $price, $consumeable){
 		return;         
 
 	$image = uploadProductImage($productId);
-	$conn = dbConnect();		
+	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php	
 	try{
 
 		if($image!=null){
@@ -46,7 +46,7 @@ function changeProduct( $productId, $name, $description, $price, $consumeable ){
 		return;
  
 	$image = uploadProductImage($productId);
-	$conn = dbConnect();		
+	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php	
 	try{
 
 		if($image!=null){
@@ -89,7 +89,7 @@ function deleteUser($nick)
 	if( !isAuthorizedAsAdmin() )
 	return;
    
-	$conn = dbConnect();
+	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 		
 	   try{
 		   $query = $conn->prepare('DELETE FROM users WHERE nick = ?;');
@@ -112,7 +112,7 @@ function deleteProduct($productId)
 	if( !isAuthorizedAsAdmin() )
 	return;
    
-	$conn = dbConnect();
+	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 		
 	   try{
 		   $query = $conn->prepare('DELETE FROM products WHERE productId = ?;');
@@ -136,7 +136,7 @@ function setUserAccess($nick, $access)
 	if( !isAuthorizedAsAdmin() )
 	return;
    
-	$conn = dbConnect();
+	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 		
 	   try{
 		   $query = $conn->prepare('UPDATE users SET access=? WHERE nick = ?;');
@@ -160,7 +160,7 @@ function getUserList()
 	if( !isAuthorizedAsAdmin() )
 	return;
    
-	$conn = dbConnect();
+	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 		
 	   try{
 		   $query = $conn->prepare('SELECT nick, access FROM users; ');
@@ -193,7 +193,7 @@ function getProductList()
 	if( !isAuthorizedAsAdmin() )
 	return;
    
-	$conn = dbConnect();
+	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 		
 	   try{
 		   $query = $conn->prepare('SELECT * FROM products; ');

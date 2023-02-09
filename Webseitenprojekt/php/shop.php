@@ -49,7 +49,7 @@ function getResources( $id ){
 	}
 	
 	//Access is authorized
-	$conn = dbConnect();
+	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 	
 	try{ // unsafe operation therefore in try-catch block
 		
@@ -90,7 +90,7 @@ function getAllProducts( ){
 	}
 	
 	//Access is authorized
-	$conn = dbConnect();
+	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 	
 	try{ // unsafe operation therefore in try-catch block
 		
@@ -129,7 +129,7 @@ function setProduct( $userId, $id, $name, $price, $count){
 		return;
 	}
 	
-	$conn = dbConnect();
+	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 	
 
 	if( UserHasAlreadyBought($userId, $id) )
@@ -183,7 +183,7 @@ function UserHasAlreadyBought( $userId, $id ){
 		return;
 	}
 	
-	$conn = dbConnect();
+	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 	
 	try{
 		//checken ob product schon gekauft, dh. die Zeile schon existiert

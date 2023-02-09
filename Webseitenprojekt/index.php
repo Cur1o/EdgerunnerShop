@@ -45,22 +45,6 @@ echo "TEST".$currency;
   {
 	 logout();
   }
-  //TODO: Delete later
-  //upload user image
-  // if(isset($_POST['enter']) && $_POST['enter']== 'Upload Image' && isset($_SESSION['nick']))
-  // {  
-	//   uploadUserImage($_SESSION['nick']);
-  // }
-
-  //  //add product
-  //  if(isset($_POST['enter']) && $_POST['enter']== 'Neues Produkt hinzufügen')
-  //  { 
-  //       $isConsumeable = 0;
-  //       if(isset($_POST['isConsumeable']) && $_POST['isConsumeable'] ="on")
-  //       $isConsumeable = 1;
-  //       addProduct( strip_tags($_POST['productId']), strip_tags($_POST['name']), strip_tags($_POST['description']), strip_tags( $_POST['price']),  $isConsumeable);
-  //  }
-
     //change product
     if(isset($_POST['enter']) && $_POST['enter']== 'Produkt ändern')
     {  
