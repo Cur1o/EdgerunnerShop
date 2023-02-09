@@ -49,9 +49,9 @@ function register($nick, $email, $password){	//es werden eigegebener nick email 
 	
 	try{
 		$query = $conn->prepare('INSERT INTO users(nick, email, userpassword) VALUES (?,?,?) ;'); //SQL Abfrage wird an die datenbank gesendet
-		$query->bindParam(1, $nick, PDO::PARAM_STR);	//name der zu dem querry Befehl hinzugefügt wird	
-        $query->bindParam(2, $email, PDO::PARAM_STR);	//email die zu dem querry Befehl hinzugefügt wird
-        $query->bindParam(3, $passwordHash, PDO::PARAM_STR);	//passworthash der zu dem querry Befehl hinzugefügt wird	
+		$query->bindParam(1, $nick, PDO::PARAM_STR);	//name der zu dem querry Abfrage hinzugefügt wird	
+        $query->bindParam(2, $email, PDO::PARAM_STR);	//email die zu dem querry Abfrage hinzugefügt wird
+        $query->bindParam(3, $passwordHash, PDO::PARAM_STR);	//passworthash der zu dem querry Abfrage hinzugefügt wird	
 												   
 		$query->execute();	//querry befehl wird ausgeführt
         
@@ -80,12 +80,12 @@ function login($nick, $password){	//es werden die von nutzer eigegebenen variabl
 	
 	try{
 		$query = $conn->prepare('SELECT  id, nick, userpassword, access, EdgeCoins
-		                         FROM users Where nick = ?');
-		$query->bindParam(1, $nick, PDO::PARAM_STR);	     											   
-		$query->execute();        										   
+		                         FROM users Where nick = ?');// ein sql befehl wird an die Datenbank gesendet
+		$query->bindParam(1, $nick, PDO::PARAM_STR);	//es wird versucht den nick namen aus der datenbank zu hohlen     											   
+		$query->execute(); //die querry abfrage wird ausgeführt        										   
 	}
-	catch(Exception $e){
-		userMessage('Es ist Fehler aufgetreten' /*.$e->getMessage()*/ );
+	catch(Exception $e){	//wenn der Name nicht gefunden wurde wird der spieler darüber benachrichtigt
+		userMessage('Es ist Fehler aufgetreten' /*.$e->getMessage()*/ );	
 	}
 	
 	if( $data = $query->fetch(PDO::FETCH_ASSOC))
