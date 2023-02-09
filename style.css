@@ -1,0 +1,216 @@
+:root{
+  --bgColContent: #ff000091;
+  --themeColContent: #ff00008c;
+  --textCol:#ffe100;
+  --bgCol:rgb(0, 0, 0);
+  --linkCol:#ffe100;
+  --borderCol: rgb(0, 0, 0);
+  --hoverCol:Aqua;
+}
+@font-face {
+	font-family: 'cyberpunk';
+	src: url('fonts/cyberpunk.otf');
+	 
+}
+@font-face {
+	font-family: 'normalLetters';
+	src: url('fonts/normal.otf');
+}
+
+*{
+	margin:0;
+	padding:0;
+}
+
+body{
+	font-family: 'normalLetters','cyberpunk', tahoma, sans-serif, Arial ;
+	background-color:var(--bgCol);
+}
+h2{
+	color:var(--linkCol);
+}
+nav{
+	background-color:var(--bgCol);
+	position:fixed;
+	z-index: 2 ;
+	left: 0;
+	right: 0;
+	top: 0;
+	display:flex;
+	align-items:baseline;
+	justify-content: space-between;
+	gap:2rem;
+	padding:0.5rem;
+	font-family: 'normalLetters','cyberpunk',Arial;
+	font-size:1.2rem;
+	/*border-bottom: 0.2rem solid var(--borderCol);*/
+
+}
+
+nav a{
+	padding:.5rem;
+	text-decoration:none;
+	color:var(--linkCol);
+	
+	font-weight: 900;
+}
+
+nav a:hover{
+	color :var(--hoverCol);
+}
+
+nav a:first-letter{
+	font-size:1.7rem;
+}
+nav a .HomepageName
+{
+	color:var(--textCol);
+	font-family: 'cyberpunk',Arial;
+}
+form, .admin{
+	display:flex;
+	flex-direction: column;
+	width: 50vw;
+	padding: 1rem;
+	gap: 1rem;
+	background-color:var(--bgColContent);	
+	margin:2rem auto;
+}
+
+
+form input, form textarea, form output, .productButton, #addProductButton{
+	border-radius: 0.3rem;
+	border:none;
+	height:1.5rem;
+}
+
+[type="submit"], .productButton, #addProductButton{
+	 font-weight:bold;
+	 height:2rem;
+	 padding:0.5rem;
+}
+
+.productButton{
+   width:9rem;
+}
+
+#addProductButton
+{
+  display: none;
+}
+
+form textarea {
+	height:5rem;
+}
+
+#enter, h1 {
+	background-color:var(--themeColContent);
+	color: var(--textCol);
+	text-align: center;
+}
+
+#enter, label{
+	font-size: 1.2rem;
+	
+}
+
+label{
+  border:none;
+  color: var(--textCol);
+}
+
+
+#logout{
+	max-width:4rem;
+	color: var(--textCol);
+}
+
+form img{
+	width:3rem;
+	height:3rem;
+	background-color: var(--bgCol);
+	border-radius:.5rem;
+	border:0.1rem solid var(--borderCol);
+}
+
+.admin output, #userList, #productList{
+	height:5rem;
+	overflow-y:scroll;
+	background-color:rgb(96, 96, 96);
+	white-space: pre-wrap;
+}
+#userList, #productList{
+	height:12rem;
+	gap:0.2rem;
+	display:flex;
+	flex-direction: column;
+	padding:1rem;
+}
+
+.admin output::before{
+    content:"Log: ";
+}
+
+.admin form{
+   width:100%;
+  
+   background-color: transparent;
+   padding:0;
+
+}
+
+.listRow, .itemForm{
+    display:flex;
+	flex-direction:row;
+	margin:0;
+    gap:0.2rem;
+	border-bottom: 0.1rem solid var(--borderCol);
+}
+
+.noBorder{
+   border:none;
+}
+
+
+.itemForm input[type="text"]{
+    flex-basis: 100%;
+	
+}
+
+.warning{
+   color:red;
+   border-color:red;
+}
+
+#addProductButton, #product input[type="submit"] {
+    font-size:1.2rem;
+	height:2.2rem;
+}
+
+input[type="checkbox"]{
+	width:3rem;
+}
+
+video{
+	display: block;
+	z-index: -1;
+	width :99vw;
+	height:99vh;
+	object-fit: cover;
+  	position: fixed;
+
+
+}
+
+.coinlogo{
+	display:inline-block;
+	width: 30px; 
+	height: 30px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 40px;
+	padding-top: 20px
+	
+	
+
+}
