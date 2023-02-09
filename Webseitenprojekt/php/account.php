@@ -45,37 +45,36 @@ function register($nick, $email, $password){	//es werden eigegebener nick email 
 			return false;
 			
 	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
-	$passwordHash = password_hash( $password, PASSWORD_DEFAULT);
+	$passwordHash = password_hash( $password, PASSWORD_DEFAULT);	//das passwort wird gehasht und dies in eine variable gelegt
 	
 	try{
-		$query = $conn->prepare('INSERT INTO users(nick, email, userpassword)
-		                                           VALUES (?,?,?) ;');
-		$query->bindParam(1, $nick, PDO::PARAM_STR);	
-        $query->bindParam(2, $email, PDO::PARAM_STR);	
-        $query->bindParam(3, $passwordHash, PDO::PARAM_STR);		
+		$query = $conn->prepare('INSERT INTO users(nick, email, userpassword) VALUES (?,?,?) ;'); //SQL Abfrage wird an die datenbank gesendet
+		$query->bindParam(1, $nick, PDO::PARAM_STR);	//name der zu dem querry Befehl hinzugefügt wird	
+        $query->bindParam(2, $email, PDO::PARAM_STR);	//email die zu dem querry Befehl hinzugefügt wird
+        $query->bindParam(3, $passwordHash, PDO::PARAM_STR);	//passworthash der zu dem querry Befehl hinzugefügt wird	
 												   
-		$query->execute();
+		$query->execute();	//querry befehl wird ausgeführt
         
-		if( isset($_POST['isUnity']) )
+		if( isset($_POST['isUnity']) )	//zum späteren verwenden in Unity wird in dem zusamenhang nicht verwendet
 	    {
 		   echo('{ "response":"success", 
 			       "message":"Erfolgreich registriert als '.$nick.'" }' );			       
 	    }
-		else{
+		else{	//erfolgreiche regestrierung ausgeben
 			userMessage("Du bist registriert als $nick");			
 		}
 									   
 	}
-	catch(Exception $e){
+	catch(Exception $e){//falls ein fehler auftritt wird der teil ausgeführt und der Fehler ausgegeben
 		userMessage('Es ist Fehler aufgetreten' /*.$e->getMessage()*/ );
 	}
-	 $conn = null;
+	 $conn = null;	//die Datenbank connection wird wieder gelöst bzw auf Null gesetzt
 	
 }
 
 //Login
 
-function login($nick, $password){
+function login($nick, $password){	//es werden die von nutzer eigegebenen variablen angenummen
 	
 	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 	
