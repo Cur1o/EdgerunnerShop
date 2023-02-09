@@ -5,7 +5,7 @@ require_once('init.php');
 
  if( !empty($json) ){
 	 
-	 $data = json_decode($json, true);// convert json string to php object
+	 $data = json_decode ($json, true);// convert json string to php object
 	 //we can work with the data object, ie. e.g. read the content of action
 	 //$data['action']
  }
