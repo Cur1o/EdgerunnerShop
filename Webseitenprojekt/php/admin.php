@@ -7,19 +7,17 @@
 		$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php	
 		try{
 			if($image!=null)
-				$query = $conn->prepare('INSERT INTO products( productId, name, description, image, price, isConsumeable ) VALUES('.$productId.','.$name.','.$description.','.$image.','.$price.','.$consumeable.');');
+				$query = $conn->prepare('INSERT INTO products( productId, name, description, image, price, isConsumeable ) VALUES('.$productId.',"'.$name.'","'.$description.'",'.$image.','.$price.','.$consumeable.');');
 			else
-				$query = $conn->prepare('INSERT INTO products( productId, name, description, price, isConsumeable ) VALUES('.$productId.','.$name.','.$description.','.$price.','.$consumeable.');');
+				$query = $conn->prepare('INSERT INTO products( productId, name, description, price, isConsumeable ) VALUES('.$productId.',"'.$name.'","'.$description.'",'.$price.','.$consumeable.');');
 			$query->execute();
 			userMessage("Produkt: ".$productId." erfolgreich angelegt");
-			$conn = null;
-			return;
 		}
 		catch(Exception $e){
 			userMessage("Es ist ein Fehler aufgetreten: ".$e);
-			$conn = null;
-			return;
 		}
+		$conn = null;
+		return;
 	}
 
 	function changeProduct( $productId, $name, $description, $price, $consumeable ){
@@ -30,18 +28,16 @@
 		$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php	
 		try{
 			if($image!=null)
-				$query = $conn->prepare('UPDATE products SET name = '.$name.', description = '.$description.', image = '.$image.', price = '.$price.', isConsumeable = '.$consumeable.' WHERE productId = '.$productId.';');
+				$query = $conn->prepare('UPDATE products SET name = "'.$name.'", description = "'.$description.'", image = '.$image.', price = '.$price.', isConsumeable = '.$consumeable.' WHERE productId = '.$productId.';');
 			else
-				$query = $conn->prepare('UPDATE products SET name = '.$name.', description = '.$description.',  price = '.$price.', isConsumeable = '.$consumeable.' WHERE productId = '.$productId.';');
+				$query = $conn->prepare('UPDATE products SET name = "'.$name.'", description = "'.$description.'",  price = '.$price.', isConsumeable = '.$consumeable.' WHERE productId = '.$productId.';');
 			$query->execute();
 			userMessage("Produkt: ".$productId." erfolgreich geändert");
-			$conn = null;
-			return;
 		}catch(Exception $e){
 			userMessage("Es ist ein Fehler aufgetreten: ".$e);
-			$conn = null;
-			return;
 		}
+		$conn = null;
+		return;
 	}
 
 
@@ -52,16 +48,14 @@
 	
 		$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 		try{
-			$query = $conn->prepare('DELETE FROM users WHERE nick = '.$nick.';');
+			$query = $conn->prepare('DELETE FROM users WHERE nick = "'.$nick.'";');
 			$query->execute();
 			userMessage("User ".$nick." gelöscht");
-			$conn = null;
-			return;
 		}catch(Exception $e){
 			userMessage("Es ist ein Fehler aufgetreten: ".$e);
-			$conn = null;
-			return;
 		}
+		$conn = null;
+		return;
 	}
 
 	function deleteProduct($productId)
@@ -74,13 +68,11 @@
 			$query = $conn->prepare('DELETE FROM products WHERE productId = '.$productId.';');
 			$query->execute();
 			userMessage("Produkt: ".$productId." wurde gelöscht");
-			$conn = null;
-			return;
 		}catch(Exception $e){
 			userMessage("Es ist ein Fehler aufgetreten: ".$e);
-			$conn = null;
-			return;
 		}
+		$conn = null;
+		return;
 	}
 
 	function setUserAccess($nick, $access)
@@ -90,18 +82,16 @@
 	
 		$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 		try{
-			$query = $conn->prepare('UPDATE users SET access = '.$access.' WHERE nick = '.$nick.';');
+			$query = $conn->prepare('UPDATE users SET access = "'.$access.'" WHERE nick = "'.$nick.'";');
 			$query->execute();
 
 			userMessage("User ".$nick." Zugang: $access");
-			$conn = null;
-			return;
 		}
 		catch(Exception $e){
 			userMessage("Es ist ein Fehler aufgetreten: ".$e);
-			$conn = null;
-			return;
 		}
+		$conn = null;
+		return;
 	}
 
 	function getUserList()
@@ -171,49 +161,41 @@
 		{
 			userMessage('Bitte nutze nur png oder jpg');
 			return;
-		}	
+		}
 		//Mimetype prüfen
 		if($mimeType !="image/png" && $mimeType !="image/jpg")
 		{
 			userMessage('Bitte nutze eine Bilddatei (png, jpg)');
 			return;
-		}	
+		}
 		//Dateigröße prüfen
 		if($_FILES['file']['size'] > $maxFileSize)
 		{
 			userMessage("Die maximale Dateigröße beträgt: $maxFileSize KB");
 			return;
 		}
-
 		//Bildgröße prüfen
 		$size = getimagesize($_FILES['file']['tmp_name']);
 		if($size == null)
 		{
 			userMessage("Bitte verwende ein gültiges Bild");
 			return;
-		}
-		else
-		{
-
+		}else{
 			if($size[0] != $imageSize || $size[1] != $imageSize)
 			{
 			userMessage("Bitte verwende ein gültiges Bild (512x512). Dein Bild ist " .$size[0]." x " .$size[1]." groß");
 			return;
-			}		
+			}
 		}
-			
+
 		//File ist ok für Upload---------------------------------------------------------
 		//Bildurl zusammenstellen für das jeweilige Produkt eindeutig durch die productId
 		$targetFile = $targetDirectory.$productId.'_productImage.'.$fileExtension;
-		
 		if(move_uploaded_file($_FILES['file']['tmp_name'], $targetFile)){
-			
 			return $targetFile;
-		}
-		else
-		{
+		}else{
 			userMessage("Es ist ein Fehler beim hochladen des Bildes aufgetreten: ");
 			return null;	
-		}	
+		}
 	}
 ?>

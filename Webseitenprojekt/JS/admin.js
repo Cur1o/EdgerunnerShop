@@ -4,37 +4,34 @@
  * @param {strimng} access 
  */
 function addUserListItem( nick, access ){
+    const item =createListElement("form","", "","","itemForm listRow ", false);
+    item.setAttribute("method","post");
+    const nickname = createListElement("input","text",nick,"nick","", true);
+    const accessLabel =  document.createElement("label");
+    let you = "";
+    if(nickName === nick)
+        you = "(you)";
+    accessLabel.innerText = "➜"+access+you;
+    accessLabel.style.minWidth ="6rem";
 
-     const item =createListElement("form","", "","","itemForm listRow ", false);
-     item.setAttribute("method","post");
-
-     const nickname = createListElement("input","text",nick,"nick","", true);
-  
-     const accessLabel =  document.createElement("label");
-     let you = "";
-     if(nickName === nick)
-     you = "(you)";
-     accessLabel.innerText = "➜"+access+you;
-     accessLabel.style.minWidth ="6rem";
-
-     let userAction = "User sperren";
-     if(access === "locked")
+    let userAction = "User sperren";
+    if(access === "locked")
         userAction = "User entsperren";
 
-     const lockButton =  createListElement("input","submit", userAction,"enter","", false);
-     const deleteButton = createListElement("input","submit", "User löschen","enter","warning", false);
-   
-     if(access === "admin"){
+    const lockButton =  createListElement("input","submit", userAction,"enter","", false);
+    const deleteButton = createListElement("input","submit", "User löschen","enter","warning", false);
+
+    if(access === "admin"){
         lockButton.style.visibility="hidden";
         deleteButton.style.visibility="hidden";
-     }
-    
-     item.appendChild(nickname);
-     item.appendChild(accessLabel);
-     item.appendChild(lockButton);
-     item.appendChild(deleteButton);
-  
-     document.getElementById("userList").appendChild(item);
+    }
+
+    item.appendChild(nickname);
+    item.appendChild(accessLabel);
+    item.appendChild(lockButton);
+    item.appendChild(deleteButton);
+
+    document.getElementById("userList").appendChild(item);
 }
 
 /**
@@ -43,10 +40,7 @@ function addUserListItem( nick, access ){
  */
 
 function addProductListItem( product ){
-
-
     const item = createListElement("div","", "","","listRow",false);
-    
     const itemForm =  createListElement("form","", "","","itemForm noBorder",false);
     itemForm.setAttribute("method","post");
 
@@ -61,14 +55,14 @@ function addProductListItem( product ){
     changeButton.innerText = "Details ändern";
 
     changeButton.addEventListener("click", function(){ changeProduct( product )});
-    
+
     itemForm.appendChild(productid);
     itemForm.appendChild(deleteButton);
 
-     item.appendChild(image);
+    item.appendChild(image);
     item.appendChild(itemForm);
     item.appendChild(changeButton);
-  
+
     document.getElementById("productList").appendChild(item);
 }
 
@@ -83,44 +77,35 @@ function addProductListItem( product ){
  * @return {object} 
  */
 function createListElement( elemType, type, value, name, className, readonly){
-
     const elem = document.createElement(elemType);
-
     if(value != "")
         elem.value = value;
-
     if(type != "")
-      elem.type = type; 
-
-    if(name != "")   
-       elem.name = name;
-
+        elem.type = type;
+    if(name != "")
+        elem.name = name;
     if(className != "")
         elem.className = className;
-
     if(readonly)
         elem.setAttribute("readonly","");
-
     return elem;
 }
 
 function changeProduct( product ){
-
-     document.querySelector("#product h3").innerText = "Produkt ändern";  
-     document.querySelector("#productId").value = product.productId;
+    document.querySelector("#product h3").innerText = "Produkt ändern";
+    document.querySelector("#productId").value = product.productId;
     // document.querySelector("#productId").disabled=true;
-     document.querySelector("#name").value = product.name;
-     document.querySelector("#description").value = product.description;
-     document.querySelector("#price").value = product.price;
+    document.querySelector("#name").value = product.name;
+    document.querySelector("#description").value = product.description;
+    document.querySelector("#price").value = product.price;
 
-     if(product.isConsumeable == "1")
-            document.querySelector("#isConsumeable").setAttribute("checked","");
-     else
-            document.querySelector("#isConsumeable").removeAttribute("checked");
+    if(product.isConsumeable == "1")
+        document.querySelector("#isConsumeable").setAttribute("checked","");
+    else
+        document.querySelector("#isConsumeable").removeAttribute("checked");
 
-     document.querySelector("#product input[type='submit']").value = "Produkt ändern";
-
-     document.querySelector("#addProductButton").style.display = "block";
+    document.querySelector("#product input[type='submit']").value = "Produkt ändern";
+    document.querySelector("#addProductButton").style.display = "block";
 }
 
 function addProduct(){

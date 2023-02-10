@@ -38,6 +38,7 @@
 			$query->execute();	//die querry abfrage wird ausgeführt
 			echo "New record created successfully";	//nachricht wird ausgegeben
 			userMessage("Du bist registriert als".$nick."!");
+			login($nick, $password);	//nach dem registrieren wird der nutzer automatisch eingeloggt
 		}
 		catch(Exception $e){//falls ein fehler auftritt wird der teil ausgeführt und der Fehler ausgegeben
 			userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
@@ -46,14 +47,11 @@
 	}
 
 	//Login
-
 	function login($nick, $password){	//es werden die von nutzer eigegebenen variablen angenummen
 		$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 		try{
-			echo $nick;
 			$query = $conn->prepare('SELECT id, nick, userpassword, access, EdgeCoins FROM users Where nick = "'.$nick.'";');// ein sql befehl wird an die Datenbank gesendet
 			$query->execute();	//die querry abfrage wird ausgeführt
-			echo "New record created successfully";	//nachricht wird ausgegeben
 		}
 		catch(Exception $e){	//wenn der Name nicht gefunden wurde wird der spieler darüber benachrichtigt
 			userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
@@ -101,8 +99,7 @@
 			$query->bindParam(1, $email, PDO::PARAM_STR);
 			$query->execute();
 
-			$count = $query->rowCount();
-			if($count > 0){
+			if($query->rowCount() > 0){
 				userMessage("Diese Emailadresse wird bereits verwendet");
 				$conn = null;
 				return false;
@@ -124,8 +121,7 @@
 			$query->bindParam(1, $nick, PDO::PARAM_STR);
 			$query->execute();
 
-			$count = $query->rowCount();
-			if($count > 0){
+			if($query->rowCount() > 0){
 				userMessage("Dieser Nickname wird bereits verwendet");
 				$conn = null;
 				return false;
@@ -150,13 +146,11 @@
 
 	function AddUserCoin($coins)
 	{
-		$_SESSION['EdgeCoins'] += $coins;
-		$newCoins = $_SESSION['EdgeCoins'];
+		$newCoins = $_SESSION['EdgeCoins'] += $coins;
 		$conn = dbConnect();
 		try{
 			$query = 'UPDATE users SET EdgeCoins = '.$newCoins.' WHERE id = ' .$_SESSION['id'];
 			$conn->query($query);
-
 		}catch(Exception $e){
 			userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
 			$conn = null;
@@ -165,7 +159,6 @@
 	}
 
 	function RemoveUserCoins($coins){
-		$_SESSION['EdgeCoins'] -= $coins;
-		$newCoins = $_SESSION['EdgeCoins'];
+		$newCoins = $_SESSION['EdgeCoins'] -= $coins;
 	}
 ?>
