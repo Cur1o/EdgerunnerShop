@@ -205,6 +205,15 @@ function logout(){
 	unset( $_SESSION['access'] );
 	unset( $_SESSION['image'] );
 	unset( $_SESSION['id'] );
+	unset( $_SESSION['EdgeCoins'] );
 	session_destroy();	
+}
+
+function AddUserCoin($coins)
+{
+	$_SESSION['EdgeCoins'] += $coins;
+}
+function RemoveUserCoins($coins){
+	$_SESSION['EdgeCoins'] -= $coins;
 }
 ?>
