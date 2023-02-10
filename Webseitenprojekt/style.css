@@ -66,6 +66,7 @@ nav a:first-letter{
 {
 	color:#F3E600;
 	font-family: 'cyberpunk',Arial;
+	font-size:2rem;
 }
 form, .admin{
 	display:flex;
