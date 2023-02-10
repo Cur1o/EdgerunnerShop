@@ -3,7 +3,7 @@
 ?>
 <nav>
 	<div class="HomepageLink">
-		<a href="index.php" name="HomepageName">Edgerunner Market</a>
+		<a href="index.php" id="HomepageName">Edgerunner Market</a>
 	</div>
 	
 	<div>

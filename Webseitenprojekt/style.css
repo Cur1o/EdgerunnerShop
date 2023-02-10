@@ -1,9 +1,9 @@
 :root{
   --bgColContent: #ff000091;
   --themeColContent: #ff00008c;
-  --textCol:#ffe100;
+  --textCol:#F3E600;
   --bgCol:rgb(0, 0, 0);
-  --linkCol:#ffe100;
+  --linkCol:#c63927;
   --borderCol: rgb(0, 0, 0);
   --hoverCol:Aqua;
 }
@@ -55,16 +55,16 @@ nav a{
 	font-weight: 900;
 }
 
-nav a:hover{
+nav a:hover, #HomepageName:hover{
 	color :var(--hoverCol);
 }
 
 nav a:first-letter{
 	font-size:1.7rem;
 }
-nav a .HomepageName
+#HomepageName
 {
-	color:var(--textCol);
+	color:#F3E600;
 	font-family: 'cyberpunk',Arial;
 }
 form, .admin{
