@@ -2,22 +2,24 @@
     <section name="cointsWindow">
         <article display='flex' z-index="1" background-color='white'>
             <form action="./" method="post">
-                
-                <input type="submit" name="500" value="+500"> 
-                <img src="images/Shopcoin500.png" type="image/png">
-                          
+                <input type="hidden" name="button500" value="true"/>
+                <input type="image" src="images/Shopcoin500.png" alt="500"/>
             </form>
-            <form>
-                <input type="submit" name="1000" value="+1000">                
+            <form action="./" method="post">
+                <input type="hidden" name="button1000" value="true"/>
+                <input type="image" src="images/Shopcoin1000.png" alt="1000"/>
             </form>
-            <form>
-                <input type="submit" name="2000" value="+2000">
+            <form action="./" method="post">
+                <input type="hidden" name="button2000" value="true"/>
+                <input type="image" src="images/Shopcoin2000.png" alt="2000"/>
             </form>
-            <form>
-                <input type="submit" name="4000" value="+4000">
+            <form action="./" method="post">
+                <input type="hidden" name="button4000" value="true"/>
+                <input type="image" src="images/Shopcoin4000.png" alt="4000"/>
             </form>
-            <form>
-                <input type="submit" name="10000" value="+10000"> 
+            <form action="./" method="post">
+                <input type="hidden" name="button10000" value="true"/>
+                <input type="image" src="images/Shopcoin10000.png" alt="10000"/>
             </form>
         </article>
 </section>

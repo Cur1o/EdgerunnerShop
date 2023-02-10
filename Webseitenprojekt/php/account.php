@@ -1,17 +1,5 @@
 <?php
 
-//Eingaben validieren ----------------------------------------------------------------------
-function isValidPassword( $password ){
-	 
-    if( !preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{10,}$/", $password ))	
-	{		
-		//wenn s kein match mit derm user passwort gibt
-		userMessage('Bitte gib gültiges Password an!');
-		return false;
-	}	
-	return true;
-}
-
 function isValidNick( $nick ){
 	 
     if( empty($nick) )	//wenn es leer ist
@@ -91,21 +79,19 @@ function login($nick, $password){	//es werden die von nutzer eigegebenen variabl
 	if( $data = $query->fetch(PDO::FETCH_ASSOC))
 	{
 
-		if( password_verify($password, $data['userpassword']))
+		if( password_verify($password, $data['userpassword']))	//überprüft ob ein paswort mit dem hash übereinstimmt
 		{
-			if(password_needs_rehash( $data['userpassword'], PASSWORD_DEFAULT))
-			{
-						
+			if(password_needs_rehash( $data['userpassword'], PASSWORD_DEFAULT))	 //vergleicht onb das passwort einen neuen hash  braucht und gibt die hash methode an
+			{						
 				try{
-					$newPasswordHash = password_hash( $password, PASSWORD_DEFAULT );
+					$newPasswordHash = password_hash( $password, PASSWORD_DEFAULT );	//ein neuer passworthash wird erstellt
 					
 					$query = $conn->prepare('UPDATE users SET userpassword = ? 
-											 WHERE nick = ?;');
+											 WHERE nick = ?;');	// verbindet sich mit demn passwort in der Datenbank um dieses im folgenden zu ändern.
 											 
-					$query->bindParam(1, $newPasswordHash, PDO::PARAM_STR);					 				
-					$query->bindParam(2, $nick, PDO::PARAM_STR);	
-					
-					$query->execute();
+					$query->bindParam(1, $newPasswordHash, PDO::PARAM_STR);							 				
+					$query->bindParam(2, $nick, PDO::PARAM_STR);							
+					$query->execute();	//führt die querry abfrage aus
 				}
 				catch(Exception $e){				
 					userMessage('Es ist Fehler aufgetreten' /*.$e->getMessage()*/ );
@@ -116,13 +102,12 @@ function login($nick, $password){	//es werden die von nutzer eigegebenen variabl
 			}	
 			
 		//logged in 
-
-		$_SESSION['nick'] = $data['nick'];
-		$_SESSION['access'] = $data['access'];
-		// $_SESSION['image'] = $data['image'];
-		$_SESSION['id'] = $data['id'];
-		$_SESSION['EdgeCoins']= $data['EdgeCoins'];		//die aktuellen coins werden aktualisiert
-		$conn = null;
+	//die Daten aus der Datenbank werden in die Sessin geschrieben---------------------------------------------
+		$_SESSION['nick'] = $data['nick'];			//Daten für den nick namen
+		$_SESSION['access'] = $data['access'];		//Daten für den zugang
+		$_SESSION['id'] = $data['id'];				//Daten für die player Id
+		$_SESSION['EdgeCoins']= $data['EdgeCoins'];	//Daten für die EdgeCoins
+		$conn = null;	//verbindung wird aufgelöst varable 
 
 		
 		if( isset($_POST['isUnity']) )
@@ -137,8 +122,8 @@ function login($nick, $password){	//es werden die von nutzer eigegebenen variabl
 		{ 
 	      //Passwort oder Nick falsch
 	      userMessage('Deine Eingaben sind falsch'); //Hier keine genauen Informationen rausgeben
-	      $conn = null;
-	      return false;			
+	      $conn = null;	
+	      return false;	//verbindung fehlgeschlagen	
 		}
 	}
 	//Passwort oder Nick falsch
@@ -173,7 +158,7 @@ function emailIsUnique( $email ){
 	return true;
 	
 }
-
+// Überprüfung ob der nick einmalig ist der eingegeben wurde
 function nickIsUnique($nick){
 	$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 	
@@ -211,9 +196,27 @@ function logout(){
 
 function AddUserCoin($coins)
 {
+	echo "TESTING";
 	$_SESSION['EdgeCoins'] += $coins;
+	$newCoins = $_SESSION['EdgeCoins'];
+	//$nick = $_SESSION['nick'];
+	$conn = dbConnect();
+	try{	
+		$query = 'UPDATE users SET EdgeCoins = '.$newCoins.' WHERE id = ' .$_SESSION['id'];
+		$conn->query($query);
+
+		
+	}catch(Exception $e){
+		userMessage('Es ist Fehler aufgetreten' /*.$e->getMessage()*/ );
+		$conn = null;
+		return false;
+	}
 }
+
 function RemoveUserCoins($coins){
+
 	$_SESSION['EdgeCoins'] -= $coins;
+	$newCoins = $_SESSION['EdgeCoins'];
+	
 }
 ?>

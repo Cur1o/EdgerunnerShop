@@ -1,87 +1,54 @@
-
 <?php
-require_once('PHP/init.php');
-require_once('PHP/account.php');
-require_once('PHP/admin.php');
+  require_once('PHP/init.php');
+  require_once('PHP/account.php');
+  require_once('PHP/admin.php');
 
-if(isset($_POST['500']))
-{
-    $cuurency += $_POST['500'];
-    $_POST['500'] = null;
-}
+  if(isset($_POST['button500'])) AddUserCoin(500);
+  if(isset($_POST['button1000'])) AddUserCoin(1000);
+  if(isset($_POST['button2000'])) AddUserCoin(2000);
+  if(isset($_POST['button4000'])) AddUserCoin(4000);
+  if(isset($_POST['button10000'])) AddUserCoin(10000);
 
-$currency = isset($_POST['currency']) ? $_POST['currency'] : 500;
+  //Frontend actions
+  //register
+  if(isset($_POST['enter']) && $_POST['enter']== 'Register')
+    if(isValidNick($_POST['nick']) && isValidEmail($_POST['email']))
+      register(strip_tags($_POST['nick']), strip_tags($_POST['email']), strip_tags($_POST['password']));
 
-
-
-echo "TEST".$currency;
-
- //Frontend actions
- //register
- if(isset($_POST['enter']) && $_POST['enter']== 'Register')
- {
-	 if( isValidPassword( $_POST['password'] ) 
-		    && isValidNick( $_POST['nick'] )
-	      && isValidEmail( $_POST['email'] ) )
-	 {
-		register( strip_tags($_POST['nick']), strip_tags($_POST['email']), strip_tags($_POST['password']) );	 			 
-	 }
- }
-
- //login
+  //login
   if(isset($_POST['enter']) && $_POST['enter'] == 'Login')
-  {
-	 if(   
-          isValidPassword( $_POST['password']) 
-		      && isValidNick( $_POST['nick'] )
-	   ) 
-      {
-        login( strip_tags($_POST['nick']), strip_tags($_POST['password']) );	 			 
-      }
-  }
- 
+    if(isValidNick( $_POST['nick']))
+      login( strip_tags($_POST['nick']), strip_tags($_POST['password']) );
+
+
   //logout
   if( isset($_GET['action'] ) && $_GET['action'] == "logout" )
-  {
-	 logout();
-  }
-    //change product
-    if(isset($_POST['enter']) && $_POST['enter']== 'Produkt ändern')
-    {  
-        $isConsumeable = 0;
-        if(isset($_POST['isConsumeable']) && $_POST['isConsumeable'] ="on")
+    logout();
+
+  //change product
+  if(isset($_POST['enter']) && $_POST['enter']== 'Produkt ändern')
+  {  
+      $isConsumeable = 0;
+      if(isset($_POST['isConsumeable']) && $_POST['isConsumeable'] ="on")
         $isConsumeable = 1;
-         changeProduct( strip_tags($_POST['productId']), strip_tags($_POST['name']), strip_tags($_POST['description']), strip_tags( $_POST['price']), $isConsumeable);
-    }
+      changeProduct( strip_tags($_POST['productId']), strip_tags($_POST['name']), strip_tags($_POST['description']), strip_tags( $_POST['price']), $isConsumeable);
+  }
 
   //delete product
   if(isset($_POST['enter']) && $_POST['enter']== 'Produkt löschen')
-  {  
-       deleteProduct( strip_tags($_POST['productId']));
-  }
+      deleteProduct( strip_tags($_POST['productId']));
 
-    //delete user
-    if(isset($_POST['enter']) && $_POST['enter']== 'User löschen')
-    {  
-         deleteUser( strip_tags($_POST['nick']));
-    }
+  //delete user
+  if(isset($_POST['enter']) && $_POST['enter']== 'User löschen')
+    deleteUser( strip_tags($_POST['nick']));
 
-   //lock user
-    if(isset($_POST['enter']) && $_POST['enter']== 'User sperren')
-    {  
-         setUserAccess( strip_tags($_POST['nick']),"locked");
-    }
-    
-    //unlock user
-    if(isset($_POST['enter']) && $_POST['enter']== 'User entsperren')
-    {  
-        setUserAccess( strip_tags($_POST['nick']),"user");
-    }
-
-
-  if( isset($_POST['isUnity'] ))
-     die;
-
+//lock user
+  if(isset($_POST['enter']) && $_POST['enter']== 'User sperren')
+    setUserAccess( strip_tags($_POST['nick']),"locked");
+  
+  //unlock user
+  if(isset($_POST['enter']) && $_POST['enter']== 'User entsperren')
+    setUserAccess( strip_tags($_POST['nick']),"user");
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -103,21 +70,20 @@ echo "TEST".$currency;
        if( isset($_SESSION['access'] ) 
              && ($_SESSION['access'] == "user" || $_SESSION['access'] == "admin" ))
        {       
-            include 'PHP/PHP_Forms/accountOverviewWindow.php';   
-            if ($_GET['action'] == 'coins') 
-            {
-                include 'PHP/PHP_Forms/coinsWindow.php';
-            } 
-            else if ($_GET['action'] == 'buyCoins')
-            {
-              
-            }
-            if($_SESSION['access'] == "admin"){
-              include 'PHP/PHP_Forms/adminPanel.php';  
+          include 'PHP/PHP_Forms/accountOverviewWindow.php';   
+          if ($_GET['action'] == 'coins') 
+          {
+            include 'PHP/PHP_Forms/coinsWindow.php';
+          } 
+          else if ($_GET['action'] == 'buyCoins')
+          {
+            
+          }
+          if($_SESSION['access'] == "admin"){
+            include 'PHP/PHP_Forms/adminPanel.php';  
 
-              $_SESSION['userList'] = getUserList();
-              $_SESSION['productList'] = getProductList();
-
+            $_SESSION['userList'] = getUserList();
+            $_SESSION['productList'] = getProductList();
           }
         } 
        
@@ -143,11 +109,6 @@ echo "TEST".$currency;
   let nickName = "<?php if( isset($_SESSION['nick'])){ echo $_SESSION['nick'];}  ?>";
   if(nick != null && nick !=""){
 	  document.getElementById("nick").innerText = "Angemeldet als "+ nickName;
-  }
-  
-  let image = "<?php if( isset($_SESSION['image'])){ echo $_SESSION['image'];}  ?>";
-  if( image != null && nick !=""){
-	  document.getElementById("userImage").src = image;
   }
 
   let userList = '<?php if( isset($_SESSION['userList'])){ echo $_SESSION['userList'];}  ?>';
