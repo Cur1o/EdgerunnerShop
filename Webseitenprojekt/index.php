@@ -1,4 +1,13 @@
-<?php
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <!-- Metadatenbereich -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.CSS">
+ </head>
+ 
+ <?php
   require_once('PHP/init.php');
   require_once('PHP/account.php');
   require_once('PHP/admin.php');
@@ -50,22 +59,17 @@
     setUserAccess( strip_tags($_POST['nick']),"user");
 ?>
 
-<!DOCTYPE html>
-<html lang="de">
-  <head>
-    <!-- Metadatenbereich -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.CSS">
- </head>
+
 
  <body>
-    <?php include 'PHP/navbar.php'; ?>
+    <navi><?php include 'PHP/navbar.php'; ?>
+</navi>
     <video width="100vw" height="100vh"  autoplay="" loop="" muted="" playsinline="">
       <source src="videos/turntable1.mp4" type="video/mp4">
       Ihr Browser unterstützt keine HTML5-Video.
     </video>
-    <?php
+    <main>
+      <?php
       if(isset($_SESSION['access']) && ($_SESSION['access'] == "user" || $_SESSION['access'] == "admin")){
         include 'PHP/PHP_Forms/accountOverviewWindow.php';   
         if ($_GET['action'] == 'coins') 
@@ -83,28 +87,30 @@
           include 'PHP/PHP_Forms/loginWindow.php';
       }
     ?>
+    
 
+  
+
+    <script src="JS/admin.js"></script>
+    <script>
+      let nickName = "<?php if(isset($_SESSION['nick'])){echo $_SESSION['nick'];}?>";
+      if(nick != null && nick !="")
+        document.getElementById("nick").innerText = "Angemeldet als "+ nickName;
+
+      let userList = '<?php if(isset($_SESSION['userList'])){echo $_SESSION['userList'];}?>';
+      if(userList != null && userList !=""){
+        let users = JSON.parse(userList);
+        for (const user of users)
+          addUserListItem(user.nick, user.access);
+      }
+
+      let productList = '<?php if( isset($_SESSION['productList'])){echo $_SESSION['productList'];}?>';
+      if(productList != null && productList !=""){
+        let products = JSON.parse(productList);
+        for (const product of products)
+          addProductListItem(product);
+      }
+    </script>
+    </main>
   </body>
-
-  <script src="JS/admin.js"></script>
-  <script>
-    let nickName = "<?php if(isset($_SESSION['nick'])){echo $_SESSION['nick'];}?>";
-    if(nick != null && nick !="")
-      document.getElementById("nick").innerText = "Angemeldet als "+ nickName;
-
-    let userList = '<?php if(isset($_SESSION['userList'])){echo $_SESSION['userList'];}?>';
-    if(userList != null && userList !=""){
-      let users = JSON.parse(userList);
-      for (const user of users)
-        addUserListItem(user.nick, user.access);
-    }
-
-    let productList = '<?php if( isset($_SESSION['productList'])){echo $_SESSION['productList'];}?>';
-    if(productList != null && productList !=""){
-      let products = JSON.parse(productList);
-      for (const product of products)
-        addProductListItem(product);
-    }
-  </script>
-
 </html>

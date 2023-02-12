@@ -1,4 +1,3 @@
-<section class="admin">
 	<h2>Admin</h2>
 	<label for="userList">User:</label>
 	<div id="userList"></div>
@@ -35,5 +34,3 @@
 			if( isset($_SESSION['userMessage'])) echo $_SESSION['userMessage'];
 		?>
 	</output>
-
-</section>

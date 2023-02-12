@@ -1,24 +1,23 @@
-<?php 
+<ul>
+	<?php 
 	$coinsvalue = $_SESSION['EdgeCoins'];
-?>
-<nav>
-	<div class="HomepageLink">
-		<a href="index.php" id="HomepageName">Edgerunner Market</a>
-	</div>
+	?>
+
+		<li><a href="index.php">Edgerunner Market</a></li>
+
 	
-	<div>
-		<a href="index.php?action=coins" ><?php echo($coinsvalue) ?></a>
+	
+		<li><a href="index.php?action=coins" ><?php echo($coinsvalue) ?></a></li>
 		<?php if(!isset($_SESSION['nick'])) {
 			echo '
-			<a href="index.php?action=login" >Login</a>
-			<a href="index.php?action=register">Register</a>
+			<li><a href="index.php?action=login" >Login</a></li>
+			<li><a href="index.php?action=register">Register</a></li>
 			';
 		}else{
 			echo'
-			<a href="index.php?action=Shop1">Shop 1</a>
-			<a href="index.php?action=Shop2">Shop 2</a>
-			<a href="index.php?action=Shop3">Shop 3</a>
+			<li><a href="index.php?action=Shop1">Shop 1</a></li>
+			<li><a href="index.php?action=Shop2">Shop 2</a></li>
+			<li><a href="index.php?action=Shop3">Shop 3</a></li>
 			';
 		}?>
-	</div>
-</nav>
+</ul>
