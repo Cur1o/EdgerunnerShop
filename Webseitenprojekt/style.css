@@ -5,7 +5,7 @@
   --bgCol:rgb(0, 0, 0);
   --linkCol:#c63927;
   --borderCol: rgb(0, 0, 0);
-  --hoverCol:Aqua;
+  --hoverCol:#00ffffba;
 }
 @font-face {
 	font-family: 'cyberpunk';
@@ -46,7 +46,6 @@ nav{
 	/*border-bottom: 0.2rem solid var(--borderCol);*/
 
 }
-
 nav a{
 	padding:.5rem;
 	text-decoration:none;
@@ -54,7 +53,6 @@ nav a{
 	
 	font-weight: 900;
 }
-
 nav a:hover, #HomepageName:hover{
 	color :var(--hoverCol);
 }
@@ -68,6 +66,45 @@ nav a:first-letter{
 	font-family: 'cyberpunk',Arial;
 	font-size:2rem;
 }
+
+/* Style for the Buy coins window */
+/* Damit die Artikel nebeneinander angeortnet werden */
+#coinsWindowArticle{
+	display:flex !important;
+	flex-direction: row !important;
+	width:auto !important;
+	height:80vh !important;
+	align-content: space-between;
+	margin: 2rem 4rem;
+	background-color: none;
+}
+/* Die Einstellung der Größe der forms */
+#coinsWindowArticle form{
+	height:512px !important;
+	width: 256px !important;
+	transition: all .2s ease-in-out;
+	
+}
+/* wenn über die karten felder gehovert wird */
+#coinsWindowArticle form:hover{
+	scale: 1.1 !important;
+	background-color: var(--hoverCol);
+
+}
+/* Für den Betrag unter den Felden */
+#coinsWindowArticle .realMoney{
+	display:block;
+	align-self: center;	
+	color:var(--textCol);
+}
+/* Größe der Bilder wird gesetzt */
+#coinsWindowArticle form input{
+	height:512px !important;
+	width: 256px !important;
+}
+/* end of style from coins window */
+
+
 form, .admin{
 	display:flex;
 	flex-direction: column;
@@ -76,9 +113,8 @@ form, .admin{
 	gap: 1rem;
 	background-color:var(--bgColContent);	
 	margin:2rem auto;
+	
 }
-
-
 form input, form textarea, form output, .productButton, #addProductButton{
 	border-radius: 0.3rem;
 	border:none;
