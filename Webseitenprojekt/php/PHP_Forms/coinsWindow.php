@@ -1,5 +1,6 @@
-    <section name="coinsWindow">
-        <article>
+<body>
+    <section name="cointsWindow">
+        <article display='flex' z-index="1" background-color='white'>
             <form action="./" method="post">
                 <input type="hidden" name="button500" value="true"/>
                 <input type="image" src="images/Shopcoin500.png" alt="500"/>
@@ -21,4 +22,4 @@
                 <input type="image" src="images/Shopcoin10000.png" alt="10000"/>
             </form>
         </article>
-    </section>
+</section>

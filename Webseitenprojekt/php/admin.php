@@ -1,4 +1,4 @@
-<main><?php
+<?php
 	function addProduct( $productId, $name, $description, $price, $consumeable){
 		if(!isAuthorizedAsAdmin())
 			return;
@@ -199,4 +199,3 @@
 		}
 	}
 ?>
-</main>
