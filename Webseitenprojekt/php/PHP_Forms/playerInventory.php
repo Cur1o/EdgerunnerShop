@@ -5,12 +5,8 @@
             try{
                 // $query = $conn->prepare('SELECT productId FROM user_resources WHERE id = "'.$_SESSION['id'].'";');
                 // $query->execute;
-                $query = $conn->prepare('SELECT products.id, products.productId, products.name, 
-                products.description, products.image, 
-                products.price, user_resources.count, products.isConsumeable
-                FROM products
-                INNER JOIN user_resources
-                ON products.id = user_resources.productId
+                $query = $conn->prepare('SELECT productId 
+                FROM user_resources
                 WHERE user_resources.userId = ?');
                 $query->bindParam( 1, $id, PDO::PARAM_INT );
                 $query->execute();
@@ -19,7 +15,8 @@
                    foreach($data as $item)
                    {
                         $itemid = $item['id'];
-                        
+                        include 'PHP/PHP_Forms/inventorySlot.php';
+                        getItem($itemid);
                    } 
                 }
             }catch(Exception $e){
