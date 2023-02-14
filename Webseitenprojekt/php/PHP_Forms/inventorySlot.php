@@ -17,6 +17,7 @@
                     $description = $data[0]['description'];
                     $image = $data[0]['image'];
                     $price = $data[0]['price'];
+                    $sellprice = $price/2;
                     $isConsumeable = $data[0]['isConsumeable'];
 
                     // Display the data on the page
@@ -24,9 +25,9 @@
 
                     echo "<img src='$image' alt='Product Image'>";
                     echo "<h1>$name</h1>";
-                    echo "<p>Preis: $price</p>";
+                    echo "<p>Wert: $sellprice</p>";
                     echo "<p>$description</p>";
-                    
+
                     echo "</form>";
                     // echo "<p>Is Consumeable: $isConsumeable</p>";
                 }
