@@ -106,12 +106,12 @@ nav a:first-letter{
 
 /* Startt of Player Inventory */
 .playerInventoryFrame{
-	background-color: rgb(34, 255, 0) !important;
+	/* background-color: rgb(34, 255, 0) !important; */
 	width:100vw !important;
 	height:60vh !important;
 	display: flex !important;
 	flex-direction:row !important;
-	justify-content:space-between !important;
+	justify-content:center !important;
 	align-self: center !important;
 	z-index:0 !important;
 	
@@ -123,15 +123,28 @@ nav a:first-letter{
 	z-index:1;
 	margin:2rem;
 }
-/* .inventorySlot{
-	background-color: rgb(0, 0, 0) !important;
+.inventorySlot{
+	background-color: rgb(255, 255, 255) !important;
 	width:35vw !important;
 	height:6vh !important;
 	display:flex !important;
 	flex-direction:row !important; 
 	justify-content: space-between !important;
 	z-index:2 !important;
-} */
+}
+.inventorySlot img{
+	position:fixed;
+	width:50px !important;
+	height:50px !important;
+}
+.inventorySlot h1{
+	color:var(--linkCol) !important;
+
+}
+
+.inventorySlot p{
+	color:var(--textCol) !important;
+}
 /* End of Player Inventory */
 form, .admin{
 	display:flex;

@@ -18,15 +18,15 @@
                     $image = $data[0]['image'];
                     $price = $data[0]['price'];
                     $isConsumeable = $data[0]['isConsumeable'];
-                
+
                     // Display the data on the page
-                    echo "<h1>$name</h1>";
-                    echo "<p>$description</p>";
                     echo "<img src='$image' alt='Product Image'>";
+                    echo "<h1>$name</h1>";
                     echo "<p>Price: $price</p>";
-                    echo "<p>Is Consumeable: $isConsumeable</p>";
+                    echo "<p>$description</p>";
+                    // echo "<p>Is Consumeable: $isConsumeable</p>";
                 }
-                
+                $conn = null;
             }catch(Exception $e){
                 userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
                 $conn=null;
@@ -34,5 +34,4 @@
             }
         }
     ?>
-    <!-- <input type="image" src="ProductImages/'..'" alt="500"/> -->
 </form>

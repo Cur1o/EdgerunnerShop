@@ -1,5 +1,15 @@
 <?php
-
+	//Eingaben validieren ----------------------------------------------------------------------
+	function isValidPassword( $password ){
+	 
+    if( !preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{10,}$/", $password ))	
+	{		
+		//wenn s kein match mit derm user passwort gibt
+		userMessage('Bitte gib gültiges Password an!');
+		return false;
+	}	
+	return true;
+}
 	function isValidNick($nick){
 		if(empty($nick))	//wenn es leer ist
 		{
@@ -50,8 +60,9 @@
 	function login($nick, $password){	//es werden die von nutzer eigegebenen variablen angenummen
 		$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 		try{
-			$query = $conn->prepare('SELECT id, nick, userpassword, access, EdgeCoins FROM users Where nick = "'.$nick.'";');// ein sql befehl wird an die Datenbank gesendet
-			$query->execute();	//die querry abfrage wird ausgeführt
+			$query = $conn->prepare('SELECT  id, nick, userpassword, access, EdgeCoins FROM users Where nick = ?');// ein sql befehl wird an die Datenbank gesendet
+			$query->bindParam(1, $nick, PDO::PARAM_STR);	//es wird versucht den nick namen aus der datenbank zu hohlen     											   
+			$query->execute(); //die querry abfrage wird ausgeführt        										   
 		}
 		catch(Exception $e){	//wenn der Name nicht gefunden wurde wird der spieler darüber benachrichtigt
 			userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
@@ -61,8 +72,9 @@
 			if(password_verify($password, $data['userpassword'])){	//überprüft ob ein paswort mit dem hash übereinstimmt
 				if(password_needs_rehash( $data['userpassword'], PASSWORD_DEFAULT)){	//vergleicht onb das passwort einen neuen hash  braucht und gibt die hash methode an
 					try{
-						$newPasswordHash = password_hash( $password, PASSWORD_DEFAULT );	//ein neuer passworthash wird erstellt
-						$query = $conn->prepare('UPDATE users SET userpassword = "'.$newPasswordHash.'" WHERE nick = "'.$nick.'";');	// verbindet sich mit demn passwort in der Datenbank um dieses im folgenden zu ändern.
+						$query = $conn->prepare('UPDATE users SET userpassword = ? WHERE nick = ?;');	// verbindet sich mit demn passwort in der Datenbank um dieses im folgenden zu ändern.					
+						$query->bindParam(1, $newPasswordHash, PDO::PARAM_STR);							 				
+						$query->bindParam(2, $nick, PDO::PARAM_STR);							
 						$query->execute();	//führt die querry abfrage aus
 					}catch(Exception $e){
 						userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
@@ -95,6 +107,7 @@
 		$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php
 
 		try{
+			
 			$query = $conn->prepare('SELECT id FROM users WHERE email = ? ;');
 			$query->bindParam(1, $email, PDO::PARAM_STR);
 			$query->execute();
@@ -149,8 +162,11 @@
 		$newCoins = $_SESSION['EdgeCoins'] += $coins;
 		$conn = dbConnect();
 		try{
-			$query = 'UPDATE users SET EdgeCoins = '.$newCoins.' WHERE id = ' .$_SESSION['id'];
-			$conn->query($query);
+			//'UPDATE users SET EdgeCoins = ? WHERE id = ?;
+			$query = $conn->prepare('UPDATE users SET EdgeCoins = ? WHERE id = ?;');
+			$query->bindParam(1,$newCoins, PDO::PARAM_STR);
+			$query->bindParam(2,$_SESSION['id'], PDO::PARAM_STR);
+			$query->execute();
 		}catch(Exception $e){
 			userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
 			$conn = null;
