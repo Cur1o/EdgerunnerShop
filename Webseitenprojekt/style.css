@@ -124,28 +124,35 @@ nav a:first-letter{
 	margin:2rem;
 }
 .inventorySlot{
-	background-color: rgb(255, 255, 255) !important;
+	background-color: var(--themeColContent) !important;
 	width:35vw !important;
 	height:6vh !important;
 	display:flex !important;
 	flex-direction:row !important; 
 	justify-content: space-between !important;
+	align-content: baseline;
 	z-index:2 !important;
+	transition: all .2s ease-in-out;
+}
+.inventorySlot:hover{
+	scale: 1.1 !important;
+	background-color: var(--hoverCol) !important;
 }
 .inventorySlot img{
-	position:fixed;
-	width:50px !important;
-	height:50px !important;
+	background-color: aqua;
+	width:auto;
+	height:6vh;
 }
 .inventorySlot h1{
-	color:var(--linkCol) !important;
+	color:var(--textCol) !important;
+	background-color:transparent !important;
 
 }
-
 .inventorySlot p{
 	color:var(--textCol) !important;
 }
 /* End of Player Inventory */
+
 form, .admin{
 	display:flex;
 	flex-direction: column;

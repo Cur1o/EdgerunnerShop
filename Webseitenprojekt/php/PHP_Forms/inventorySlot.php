@@ -1,4 +1,4 @@
-<form class="inventorySlot">
+
     <?php 
         function getItem($itemID){
             $conn = dbConnect();
@@ -20,10 +20,14 @@
                     $isConsumeable = $data[0]['isConsumeable'];
 
                     // Display the data on the page
+                    echo "<form class='inventorySlot'>";
+
                     echo "<img src='$image' alt='Product Image'>";
                     echo "<h1>$name</h1>";
-                    echo "<p>Price: $price</p>";
+                    echo "<p>Preis: $price</p>";
                     echo "<p>$description</p>";
+                    
+                    echo "</form>";
                     // echo "<p>Is Consumeable: $isConsumeable</p>";
                 }
                 $conn = null;
