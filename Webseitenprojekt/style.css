@@ -117,7 +117,7 @@ nav a:first-letter{
 	
 }
 #inventorySlotContainer{
-	background-color: rgb(255, 0, 255) !important;
+	background-color: var(--bgColContent) !important;
 	width:40vw !important;
 	height:50vh !important;
 	z-index:1;
