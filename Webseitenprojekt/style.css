@@ -123,7 +123,7 @@ nav a:first-letter{
 	z-index:1;
 	margin:2rem;
 }
-.inventorySlot{
+/* .inventorySlot{
 	background-color: rgb(0, 0, 0) !important;
 	width:35vw !important;
 	height:6vh !important;
@@ -131,7 +131,7 @@ nav a:first-letter{
 	flex-direction:row !important; 
 	justify-content: space-between !important;
 	z-index:2 !important;
-}
+} */
 /* End of Player Inventory */
 form, .admin{
 	display:flex;

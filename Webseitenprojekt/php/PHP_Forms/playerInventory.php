@@ -12,7 +12,7 @@
                 if($data = $query->fetchAll(PDO::FETCH_ASSOC)){
                    foreach($data as $item)
                    {
-                        $itemid = $item['id'];
+                        $itemid = $item['productId'];
                         include 'inventorySlot.php';
                         getItem($itemid);
                    } 
