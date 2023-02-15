@@ -1,7 +1,6 @@
-
     <?php 
         function getItem($itemID){
-            $conn = dbConnect();
+            $conn = dbConnect(); 
             try{
                 $query = $conn->prepare('SELECT products.name, 
                 products.description, products.image, 
@@ -21,15 +20,17 @@
                     $isConsumeable = $data[0]['isConsumeable'];
 
                     // Display the data on the page
-                    echo "<form class='inventorySlot'>";
+                    echo 
+                    "<form class='inventorySlot'>
+                        <img src='$image' alt='Product Image'>
+                        <div>
+                            <h1>$name</h1>          
+                            <p>Wert: $sellprice</p>
+                        </div>
 
-                    echo "<img src='$image' alt='Product Image'>";
-                    echo "<h1>$name</h1>";
-                    echo "<p>Wert: $sellprice</p>";
-                    echo "<p>$description</p>";
-
-                    echo "</form>";
-                    // echo "<p>Is Consumeable: $isConsumeable</p>";
+                        <p>$description</p>
+                    </form>";
+                    //echo "<p>Is Consumeable: $isConsumeable</p>";
                 }
                 $conn = null;
             }catch(Exception $e){
@@ -37,6 +38,9 @@
                 $conn=null;
                 return false;   
             }
+        }
+        function removeItem(){
+
         }
     ?>
 </form>

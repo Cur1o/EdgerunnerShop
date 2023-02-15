@@ -129,7 +129,7 @@ nav a:first-letter{
 	height:6vh !important;
 	display:flex !important;
 	flex-direction:row !important; 
-	justify-content: space-between !important;
+	justify-content:left !important;
 	align-content: baseline;
 	z-index:2 !important;
 	transition: all .2s ease-in-out;
@@ -144,11 +144,13 @@ nav a:first-letter{
 	height:6vh;
 }
 .inventorySlot h1{
+	text-align: left;
 	color:var(--textCol) !important;
 	background-color:transparent !important;
 
 }
 .inventorySlot p{
+	text-align: left;
 	color:var(--textCol) !important;
 }
 /* End of Player Inventory */
