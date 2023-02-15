@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 14. Feb 2023 um 00:35
+-- Erstellungszeit: 15. Feb 2023 um 18:10
 -- Server-Version: 10.4.25-MariaDB
 -- PHP-Version: 8.1.10
 
@@ -47,19 +47,19 @@ CREATE TABLE IF NOT EXISTS `products` (
 
 INSERT INTO `products` (`id`, `productId`, `name`, `description`, `image`, `price`, `isConsumeable`) VALUES
 (91, 'pistol', 'Pistole', 'Piw Piw', 'ProductImages/Pistol.png', 500, 0),
-(92, 'gun', 'Gewehr', 'macht Löcher in Leute die weiter weg stehen', 'ProductImages/Gun.png', 1000, 0),
-(93, 'shotgun', 'Shotgun', 'macht viele Löcher in Leute, (zum mindest in die die nahe sind )', 'ProductImages/Shotgun.png', 1000, 0),
-(94, 'sniper', 'Scharfschützenge', 'macht Löcher in Leute die echt weit weg sind', 'ProductImages/Sniper.png', 3000, 0),
-(95, 'knife', 'Messer', 'wenns mal persönlich wird', 'ProductImages/Knife.png', 500, 0),
-(96, 'head', 'Helm', 'schützt die Frisur vor Säureregen', 'ProductImages/Head.png', 500, 0),
-(97, 'body', 'Rüstung', 'nützlich um Löcher im Körper zu verhindern', 'ProductImages/Body.png', 1000, 0),
-(98, 'legs', 'Hose', 'nur echt mit drei Löchern drinn', 'ProductImages/Legs.png', 600, 0),
+(92, 'gun', 'Gewehr', 'macht Loecher in Leute die weiter weg stehen', 'ProductImages/Gun.png', 1000, 0),
+(93, 'shotgun', 'Shotgun', 'macht viele Loecher in Leute', 'ProductImages/Shotgun.png', 1000, 0),
+(94, 'sniper', 'Sniper', 'macht ein fettes Loch', 'ProductImages/Sniper.png', 3000, 0),
+(95, 'knife', 'Messer', 'wenns mal direkter wird', 'ProductImages/Knife.png', 500, 0),
+(96, 'head', 'Helm', 'schuetzt die Frisur auch im Kugelhagel', 'ProductImages/Head.png', 500, 0),
+(97, 'body', 'Ruestung', 'nützlich um Loecher im Koerper zu verhindern', 'ProductImages/Body.png', 1000, 0),
+(98, 'legs', 'Hose', 'nur echt mit drei Loechern drin', 'ProductImages/Legs.png', 600, 0),
 (99, 'hand', 'Handschuhe', 'hier wohnen die Finger', 'ProductImages/Hand.png', 300, 0),
-(100, 'health', 'Medipack', 'zum zusammenflicken der vielen Löcher', 'ProductImages/Health.png', 200, 1),
+(100, 'health', 'Medipack', 'zum zusammenflicken der vielen Loecher', 'ProductImages/Health.png', 200, 1),
 (101, 'speed', 'Stimpack', 'wenns mal wieder länger dauert', 'ProductImages/Speed.png', 200, 1),
 (102, 'shield', 'Schildblase', 'falls du Lust hast auf die eigene Bubble', 'ProductImages/Shield.png', 500, 1),
 (103, 'stealth', 'Tarnumhang', '... und weg war er', 'ProductImages/Stealth.png', 500, 0),
-(104, 'rage', 'RageStimpack', 'wenn das Messer noch nicht persönlich genug ist', 'ProductImages/Rage.png', 150, 1);
+(104, 'rage', 'Rage', 'Wut als Snack', 'ProductImages/Rage.png', 150, 1);
 
 -- --------------------------------------------------------
 
@@ -79,15 +79,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `nick` (`nick`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `users`
 --
 
 INSERT INTO `users` (`id`, `nick`, `email`, `userpassword`, `image`, `access`, `lastchange`, `EdgeCoins`) VALUES
-(7, 'Cur1o', 'cur1o@gmail.com', '$2y$10$kqpiJV.FnaZqPT.ifiBVvOfZiSTP2yrhnauxsGIpSGnUJDtGjONX6', 'UserImages/Cur1o_userImage.png', 'user', '2023-02-13 21:07:40', 26000),
-(8, 'admin', 'admin@shop.de', '$2y$10$M9ut8JoSGAB50T.WmQOhy.qqJzSpPJ2/lR.3Mx3F8Eb.PqGpPRa4G', 'UserImages/noimage.png', 'admin', '2023-02-10 23:46:32', 30000);
+(0, 'admin', 'admin@shop.de', '$2y$10$M9ut8JoSGAB50T.WmQOhy.qqJzSpPJ2/lR.3Mx3F8Eb.PqGpPRa4G', 'UserImages/noimage.png', 'admin', '2023-02-15 16:10:53', 30000),
+(7, 'Cur1o', 'cur1o@gmail.com', '$2y$10$kqpiJV.FnaZqPT.ifiBVvOfZiSTP2yrhnauxsGIpSGnUJDtGjONX6', 'UserImages/Cur1o_userImage.png', 'user', '2023-02-15 16:16:29', 590000),
+(16, 'waffen', 'waffen@shop.de', '$2y$10$prdwUeN4t3HOM4wsbGM2keFzEbocgVgG3DUXcOV7nbBlKw9BPIc7y', 'UserImages/noimage.png', 'user', '2023-02-15 16:18:52', 10000),
+(17, 'kleidung', 'kleidung@shop.de', '$2y$10$IW6mHwni5hIL7fSVz0VAtO/l1BhdervO8xBIt63XFqupqjnVJ1H3G', 'UserImages/noimage.png', 'user', '2023-02-15 16:23:56', 0),
+(18, 'produkte', 'produkte@shop.de', '$2y$10$UmhPn0FX0syFOzxdR4ctMOquRQvIkRBmtLCz4j.2Oj06nQsPNI9ha', 'UserImages/noimage.png', 'user', '2023-02-15 16:24:58', 0);
 
 -- --------------------------------------------------------
 
@@ -104,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `user_resources` (
   KEY `userId` (`userId`),
   KEY `productId` (`productId`),
   KEY `productId_2` (`productId`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `user_resources`
@@ -112,7 +115,10 @@ CREATE TABLE IF NOT EXISTS `user_resources` (
 
 INSERT INTO `user_resources` (`id`, `productId`, `userId`, `count`) VALUES
 (20, 92, 7, 1),
-(21, 91, 7, 1);
+(24, 95, 7, 1),
+(25, 94, 7, 1),
+(26, 104, 7, 1),
+(27, 100, 7, 1);
 
 --
 -- Constraints der exportierten Tabellen

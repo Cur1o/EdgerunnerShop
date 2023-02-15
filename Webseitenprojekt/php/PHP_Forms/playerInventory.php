@@ -9,13 +9,15 @@
             $query->bindParam( 1, $_SESSION['id'], PDO::PARAM_INT );
             $query->execute();
             if($data = $query->fetchAll(PDO::FETCH_ASSOC)){
+                echo '<div class="inventorySlotContainer">';
                 echo '<h1 class="inventoryName">'.$_SESSION['nick'].'</h1>';
-               foreach($data as $item)
-               {
+                foreach($data as $item)
+                {
                     $itemid = $item['productId'];
                     include_once 'inventorySlot.php';
                     getItem($itemid);
-               } 
+                } 
+                echo '</div>';
             }else{
                 echo('No inventory slot');
             }
@@ -60,23 +62,21 @@
     //     getItemsInInventory();
     // }
     function GetShopInventory($shop){
-
+        include 'PHP/PHP_Forms/TraderInventory.php';
     }
 ?>
 <section class="playerInventoryFrame">
-    <div class="inventorySlotContainer">
-        <?php getItemsInInventory();?>
-    </div> 
-    <div class="inventorySlotContainer">
-        <?php
-            //getItemsInInventory()
+        <?php 
+            getItemsInInventory();
+            
             // if($_GET['action'] == 'shop1')
-            //     $shop = 
-            //     //include 'PHP/PHP_Forms/TraderInventory.php';
+            //     $shopNick = Waffen; 
+            //     GetShopInventory($shopNick)
             // if($_GET['action'] == 'shop2')
-      
+            //     $shopNick = ;
+            //     GetShopInventory($shop)
             // if($_GET['action'] == 'shop3')
-            //GetShopInventory($shop);
+            //     $shopNick = ;
+            //      GetShopInventory($shop);
         ?>
-    <div>
 </section>
