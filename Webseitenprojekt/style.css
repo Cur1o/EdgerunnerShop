@@ -119,7 +119,7 @@ nav a:first-letter{
 	z-index:0 !important;
 	
 }
-#inventorySlotContainer{
+.inventorySlotContainer{
 	background-color: var(--bgColContent) !important;
 	width:40vw !important;
 	height:50vh !important;
@@ -139,7 +139,7 @@ nav a:first-letter{
 	flex-direction:row !important; 
 	justify-content:left !important;
 	align-content: baseline;
-	
+	margin : 1rem auto !important;
 	z-index:2 !important;
 	transition: all .2s ease-in-out;
 }

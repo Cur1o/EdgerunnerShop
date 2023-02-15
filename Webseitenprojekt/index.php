@@ -68,9 +68,14 @@
     <?php
       if(isset($_SESSION['access']) && ($_SESSION['access'] == "user" || $_SESSION['access'] == "admin")){
         include 'PHP/PHP_Forms/accountOverviewWindow.php'; 
-        include 'PHP/PHP_Forms/playerInventory.php';  
-        if ($_GET['action'] == 'coins') 
+        include 'PHP/PHP_Forms/playerInventory.php'; 
+
+
+
+
+        if($_GET['action'] == 'coins') 
           include 'PHP/PHP_Forms/coinsWindow.php';
+
         if($_SESSION['access'] == "admin"){
           include 'PHP/PHP_Forms/adminPanel.php';  
           $_SESSION['userList'] = getUserList();
