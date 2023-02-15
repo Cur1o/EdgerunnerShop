@@ -162,6 +162,9 @@ nav a:first-letter{
 	text-align: left;
 	color:var(--textCol) !important;
 }
+.inventoryName{
+	background-color:transparent !important;
+}
 /* End of Player Inventory */
 
 form, .admin{

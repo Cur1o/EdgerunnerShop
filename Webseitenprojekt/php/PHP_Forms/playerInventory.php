@@ -9,6 +9,7 @@
             $query->bindParam( 1, $_SESSION['id'], PDO::PARAM_INT );
             $query->execute();
             if($data = $query->fetchAll(PDO::FETCH_ASSOC)){
+                echo '<h1 class="inventoryName">'.$_SESSION['nick'].'</h1>';
                foreach($data as $item)
                {
                     $itemid = $item['productId'];
@@ -66,16 +67,16 @@
     <div class="inventorySlotContainer">
         <?php getItemsInInventory();?>
     </div> 
-    <div>
-        <?php 
+    <div class="inventorySlotContainer">
+        <?php
+            //getItemsInInventory()
             // if($_GET['action'] == 'shop1')
             //     $shop = 
             //     //include 'PHP/PHP_Forms/TraderInventory.php';
             // if($_GET['action'] == 'shop2')
       
             // if($_GET['action'] == 'shop3')
-        GetShopInventory($shop);
-        
+            //GetShopInventory($shop);
         ?>
     <div>
 </section>
