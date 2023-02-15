@@ -89,6 +89,8 @@
 				$_SESSION['access'] = $data['access'];		//Daten für den zugang
 				$_SESSION['id'] = $data['id'];				//Daten für die player Id
 				$_SESSION['EdgeCoins']= $data['EdgeCoins'];	//Daten für die EdgeCoins
+				$_SESSION['currentshopID'] = 0;
+
 				$conn = null;								//verbindung wird aufgelöst varable 
 				return true;
 			}else{	//Passwort oder Nick falsch
@@ -154,6 +156,7 @@
 		unset( $_SESSION['image'] );
 		unset( $_SESSION['id'] );
 		unset( $_SESSION['EdgeCoins'] );
+		unset( $_SESSION['currentshopID'] );
 		session_destroy();
 	}
 

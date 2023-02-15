@@ -109,7 +109,6 @@ nav a:first-letter{
 
 /* Startt of Player Inventory */
 .playerInventoryFrame{
-	/* background-color: rgb(34, 255, 0) !important; */
 	width:100vw !important;
 	height:60vh !important;
 	display: flex !important;
@@ -143,6 +142,10 @@ nav a:first-letter{
 	z-index:2 !important;
 	transition: all .2s ease-in-out;
 }
+.inventorySlot > :last-child{
+	margin-left:auto;
+	/* justify-self: right !important; */
+}
 .inventorySlot:hover{
 	scale: 1.1 !important;
 	background-color: var(--hoverCol) !important;
@@ -161,6 +164,14 @@ nav a:first-letter{
 .inventorySlot p{
 	text-align: left;
 	color:var(--textCol) !important;
+}
+.inventorySlot button{
+	height:2rem !important;
+	width:4rem !important;
+	border-color:var(--textCol) !important;
+	color:var(--textCol) !important;
+	background-color: var(--bgColContent) !important;
+	text-align: center !important;
 }
 .inventoryName{
 	background-color:transparent !important;

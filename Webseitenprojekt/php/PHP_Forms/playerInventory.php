@@ -1,9 +1,12 @@
 <?php
-    // getItemsInInventory();
+    require_once('PHP/init.php');
+    require_once('PHP/account.php');
+    require_once('PHP/admin.php');
+
     function getItemsInInventory(){
         $conn = dbConnect();
         try{
-            $query = $conn->prepare('SELECT productId 
+            $query = $conn->prepare('SELECT productId, id
             FROM user_resources
             WHERE user_resources.userId = ?');
             $query->bindParam( 1, $_SESSION['id'], PDO::PARAM_INT );
@@ -13,9 +16,10 @@
                 echo '<h1 class="inventoryName">'.$_SESSION['nick'].'</h1>';
                 foreach($data as $item)
                 {
-                    $itemid = $item['productId'];
+                    $itemID = $item['productId'];
+                    $slotID = $item['id'];
                     include_once 'inventorySlot.php';
-                    getItem($itemid);
+                    getItem($itemID,$slotID);
                 } 
                 echo '</div>';
             }else{
@@ -28,55 +32,121 @@
             return false;
         }
     }
-    //Removes the given item from the inventory
-    // function removeItem($itemID){
-    //     $conn = dbConnect();
-    //     try{
-    //         $query = $conn->prepare('DELETE FROM user_resources WHERE user_resources.id = ?;');
-    //         $query->bindParam( 1, $_SESSION['id'], PDO::PARAM_INT );
-    //         $query->execute();
-    //     }catch(Exception $e){
-    //         userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
-    //         $conn=null;
-    //         return false;
-    //     }
-    //     $conn=null;
-    //     getItemsInInventory();
-        
-    // };
-    //Adds the given Item to the player inventory 
-    // function addItem($itemID){
-    //     $conn = dbConnect();
-    //     try{
-    //         $query = $conn->prepare('INSERT INTO user_resources (id,productId, userId, count) VALUES (NULL,? ,? ,? )');
-    //         $query->bindParam( 1, $itemID , PDO::PARAM_INT );
-    //         $query->bindParam( 2, $_SESSION['id'], PDO::PARAM_INT );
-    //         $query->bindParam( 3, 1, PDO::PARAM_INT );
-    //         $query->execute();
-    //     }catch(Exception $e){
-    //         userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
-    //         $conn=null;
-    //         return false;
-    //     }
-    //     $conn = null;
-    //     getItemsInInventory();
-    // }
-    function GetShopInventory($shop){
-        include 'PHP/PHP_Forms/TraderInventory.php';
+    //places the items in the
+    function GetShopInventory($shopID){
+        $conn = dbConnect();
+        try{
+            $query = $conn->prepare('SELECT productId, id FROM user_resources WHERE user_resources.userId = ?');
+            $query->bindParam( 1, $shopID, PDO::PARAM_INT );
+            $query->execute();
+            if($data = $query->fetchAll(PDO::FETCH_ASSOC)){
+                echo '<div class="inventorySlotContainer">';
+                echo '<h1 class="inventoryName">Shop '.$shopID.'</h1>';
+                foreach($data as $item)
+                {
+                    $itemID = $item['productId'];
+                    $slotID = $item['id'];
+                    
+                    include_once 'traderSlot.php';
+                    getTraderItem($itemID,$slotID);
+                } 
+                echo '</div>';
+            }else{
+                echo('No inventory slot');
+            }
+            $conn = null;
+        }catch(Exception $e){
+            userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
+            $conn=null;
+            return false;
+        }
     }
+        //Buy an item from the shop
+        function buyItem($slotID) {
+            echo'TESTING'.$slotID,$_SESSION['currentshopID'];
+            $conn = dbConnect();
+            try{
+                $query = $conn->prepare('UPDATE user_resources SET userId = ? WHERE user_resources.id = ?');
+                $query->bindParam( 1, $slotID, PDO::PARAM_INT );
+                $query->bindParam( 2, $_SESSION['currentshopID'], PDO::PARAM_INT );
+                $query->execute();
+                // if($data = $query->fetchAll(PDO::FETCH_ASSOC)){
+                // }
+            }catch(Exception $e){
+                userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
+                $conn=null;
+                return false;
+            }
+            $conn = null;
+        }
+        //sell an item to the shop
+        function sellItem($slotID) {
+            echo'TESTING'.$slotID,$_SESSION['currentshopID'];
+            $conn = dbConnect();
+            try{
+                $query = $conn->prepare('UPDATE user_resources SET userId = ? WHERE user_resources.id = ?');
+                $query->bindParam( 1, $slotID, PDO::PARAM_INT );
+                $query->bindParam( 2, $_SESSION['id'], PDO::PARAM_INT );
+                $query->execute();
+                // if($data = $query->fetchAll(PDO::FETCH_ASSOC)){
+                // }
+            }catch(Exception $e){
+                userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
+                $conn=null;
+                return false;
+            }
+            $conn = null;
+        }
+    //end of PHP -------------------------------------------------------------------------------------------------------------------------------
 ?>
 <section class="playerInventoryFrame">
         <?php 
+            
+            
             getItemsInInventory();
             
-            // if($_GET['action'] == 'shop1')
-            //     $shopNick = Waffen; 
-            //     GetShopInventory($shopNick)
-            // if($_GET['action'] == 'shop2')
-            //     $shopNick = ;
-            //     GetShopInventory($shop)
-            // if($_GET['action'] == 'shop3')
-            //     $shopNick = ;
-            //      GetShopInventory($shop);
+            // Überprüft ob daten von den items die verkauft oder gekauft wurden exestieren uns speichet diese zur verwendung
+            if(isset($_GET['slotID'])&& isset($_GET['isShop'])){
+                $slotID = $_GET['slotID'];
+                if (isset($_GET['isShop']) == false)
+                    sellItem($slotID);// wenn die gesendete slot id NICHT von einem shop kommt
+                else
+                    buyItem($slotID);// wenn die gesendete slot id von einem shop kommt
+
+                //GetShopInventory($_SESSION['currentshopID']);
+            }
+            if($_GET['action'] == 'Shop1'){
+                $shopIDGlobal = 1; 
+                $_SESSION['currentshopID'] = $shopIDGlobal;
+                GetShopInventory($_SESSION['currentshopID']);
+                
+            }
+                
+            if($_GET['action'] == 'Shop2'){
+                $shopIDGlobal = 2;
+                $_SESSION['currentshopID'] = $shopIDGlobal;
+                GetShopInventory($_SESSION['currentshopID']);
+                
+            }
+                
+            if($_GET['action'] == 'Shop3'){
+                $shopIDGlobal = 3;
+                $_SESSION['currentshopID'] = $shopIDGlobal;
+                GetShopInventory($_SESSION['currentshopID']);
+               
+            }
         ?>
 </section>
+
+<!-- waffen verkaufen sql 
+(UPDATE user_resources SET userId = ? WHERE user_resources.id = ?) 
+1 = shop user id 
+2 = item slot id  
+
+
+waffen loeschen 
+"DELETE FROM user_resources WHERE `user_resources`.`userid` = ?"
+1 = shopuser
+
+
+-->

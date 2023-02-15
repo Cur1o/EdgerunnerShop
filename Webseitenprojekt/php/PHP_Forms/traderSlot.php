@@ -1,5 +1,6 @@
 <?php 
-    function getItem($itemID, $slotID){
+    function getTraderItem($itemID, $slotID){
+        
         $conn = dbConnect(); 
         try{
             $query = $conn->prepare('SELECT products.name, 
@@ -16,21 +17,21 @@
                 $description = $data[0]['description'];
                 $image = $data[0]['image'];
                 $price = $data[0]['price'];
-                $sellprice = $price/2;
-                $isConsumeable = $data[0]['isConsumeable'];
+                
+                //$isConsumeable = $data[0]['isConsumeable'];
                 // Display the data on the page
                 echo 
                 "<form class='inventorySlot' method ='get' action='index.php'>
                         <img src='$image' alt='Product Image'>
                         <div>
                             <h1>$name</h1>          
-                            <p>Wert: $sellprice</p>
+                            <p>Wert: $price</p>
                         </div>
                             <p>$description</p>
                         <div>
                             <input type='hidden' name='slotID' value='".$slotID."'>
-                            <input type='hidden' name='isShop' value='false'>
-                            <button type='submit' class='inventorySlot'>-</button>
+                            <input type='hidden' name='isShop' value='true'>
+                            <button type='submit' class='inventorySlot'>+</button>
                         </div>
                 </form>";
                 //echo "<p>Is Consumeable: $isConsumeable</p>";
@@ -42,6 +43,4 @@
             return false;   
         }
     }
-    // function removeItem(){
-    // }
 ?>
