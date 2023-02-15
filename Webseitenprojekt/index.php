@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.CSS">
  </head>
- 
+ <body>
  <?php
   require_once('PHP/init.php');
   require_once('PHP/account.php');
@@ -61,9 +61,10 @@
 
 
 
- <body>
-    <navi><?php include 'PHP/navbar.php'; ?>
-</navi>
+ 
+    <navi>
+      <?php include 'PHP/navbar.php'; ?>
+    </navi>
     <video width="100vw" height="100vh"  autoplay="" loop="" muted="" playsinline="">
       <source src="videos/turntable1.mp4" type="video/mp4">
       Ihr Browser unterstützt keine HTML5-Video.

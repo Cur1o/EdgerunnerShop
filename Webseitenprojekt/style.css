@@ -41,16 +41,18 @@ ul li {
 }
 .img a:hover {
 	-webkit-transform: scale(1);
-  -ms-transform: scale(1);
-  transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
 	
 }
 
-form input, form textarea, form output, .productButton, #addProductButton{
+form input, form textarea, form output, .productButton, #addProductButton, form.itemForm.listRow {
 	border-radius: 0.3rem;
 	border:none;
 	height:1.5rem;
-	display:block;
+	display:inline;
+	padding:1em;
+	margin:1em;
 }
 
 form img{
