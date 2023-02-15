@@ -21,6 +21,9 @@
 	margin:0;
 	padding:0;
 }
+::-webkit-scrollbar {
+	display: none;
+}
 
 body{
 	font-family: 'normalLetters','cyberpunk', tahoma, sans-serif, Arial ;
@@ -122,6 +125,11 @@ nav a:first-letter{
 	height:50vh !important;
 	z-index:1;
 	margin:2rem;
+	display:flex !important;
+	flex-direction:column;
+	overflow-y: scroll !important;
+	scrollbar-width: none;
+	
 }
 .inventorySlot{
 	background-color: var(--themeColContent) !important;
@@ -131,6 +139,7 @@ nav a:first-letter{
 	flex-direction:row !important; 
 	justify-content:left !important;
 	align-content: baseline;
+	
 	z-index:2 !important;
 	transition: all .2s ease-in-out;
 }

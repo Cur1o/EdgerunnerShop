@@ -22,13 +22,15 @@
                     // Display the data on the page
                     echo 
                     "<form class='inventorySlot'>
-                        <img src='$image' alt='Product Image'>
-                        <div>
-                            <h1>$name</h1>          
-                            <p>Wert: $sellprice</p>
-                        </div>
 
-                        <p>$description</p>
+                            <img src='$image' alt='Product Image'>
+                            <div>
+                                <h1>$name</h1>          
+                                <p>Wert: $sellprice</p>
+                            </div>
+                    
+                            <p>$description</p>
+
                     </form>";
                     //echo "<p>Is Consumeable: $isConsumeable</p>";
                 }
