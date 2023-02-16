@@ -48,6 +48,7 @@
   //unlock user
   if(isset($_POST['enter']) && $_POST['enter']== 'User entsperren')
     setUserAccess( strip_tags($_POST['nick']),"user");
+
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +57,8 @@
     <!-- Metadatenbereich -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Einbindung des Style -->
     <link rel="stylesheet" href="style.CSS">
  </head>
 

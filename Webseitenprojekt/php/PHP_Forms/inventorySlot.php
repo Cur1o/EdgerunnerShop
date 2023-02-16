@@ -29,7 +29,7 @@
                             <p>$description</p>
                         <div>
                             <input type='hidden' name='slotID' value='".$slotID."'>
-                            <input type='hidden' name='isShop' value='false'>
+                            <input type='hidden' name='isShop' value='0'>
                             <button type='submit' class='inventorySlot'>-</button>
                         </div>
                 </form>";

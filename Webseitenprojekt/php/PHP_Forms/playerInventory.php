@@ -61,42 +61,45 @@
             return false;
         }
     }
-        //Buy an item from the shop
-        function buyItem($slotID) {
-            echo'TESTING'.$slotID,$_SESSION['currentshopID'];
-            $conn = dbConnect();
-            try{
-                $query = $conn->prepare('UPDATE user_resources SET userId = ? WHERE user_resources.id = ?');
-                $query->bindParam( 1, $slotID, PDO::PARAM_INT );
-                $query->bindParam( 2, $_SESSION['currentshopID'], PDO::PARAM_INT );
-                $query->execute();
-                // if($data = $query->fetchAll(PDO::FETCH_ASSOC)){
-                // }
-            }catch(Exception $e){
-                userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
-                $conn=null;
-                return false;
-            }
-            $conn = null;
+    //Buy an item from the shop
+    function buyItem($slotID) {
+        echo'TESTING buy item: '.$slotID,$_SESSION['currentshopID'];
+        $conn = dbConnect();
+        try{
+            $query = $conn->prepare('UPDATE user_resources SET userId = ? WHERE user_resources.id = ?');
+            $query->bindParam( 1, $_SESSION['id'], PDO::PARAM_INT );
+            $query->bindParam( 2, $slotID, PDO::PARAM_INT );
+            $query->execute();
+            
+            // if($data = $query->fetchAll(PDO::FETCH_ASSOC)){
+            // }
+        }catch(Exception $e){
+            userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
+            $conn=null;
+            return false;
         }
-        //sell an item to the shop
-        function sellItem($slotID) {
-            echo'TESTING'.$slotID,$_SESSION['currentshopID'];
-            $conn = dbConnect();
-            try{
-                $query = $conn->prepare('UPDATE user_resources SET userId = ? WHERE user_resources.id = ?');
-                $query->bindParam( 1, $slotID, PDO::PARAM_INT );
-                $query->bindParam( 2, $_SESSION['id'], PDO::PARAM_INT );
-                $query->execute();
-                // if($data = $query->fetchAll(PDO::FETCH_ASSOC)){
-                // }
-            }catch(Exception $e){
-                userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
-                $conn=null;
-                return false;
-            }
-            $conn = null;
+        $conn = null;
+    }
+    //sell an item to the shop
+    function sellItem($slotID) {
+        echo'TESTING sell item :'.$slotID,$_SESSION['currentshopID'];
+        $conn = dbConnect();
+        try{
+            $query = $conn->prepare('UPDATE user_resources SET userId = ? WHERE id = ? ');
+            $query->bindParam( 1, $_SESSION['currentshopID'], PDO::PARAM_INT );
+            $query->bindParam( 2, $slotID, PDO::PARAM_INT );
+            $query->execute();
+            // if($data = $query->fetchAll(PDO::FETCH_ASSOC)){
+            // }
+        }catch(Exception $e){
+            echo 'FEHLER';
+            userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
+            $conn=null;
+            return false;
         }
+        $conn = null;
+    }
+          
     //end of PHP -------------------------------------------------------------------------------------------------------------------------------
 ?>
 <section class="playerInventoryFrame">
@@ -108,13 +111,14 @@
             // Überprüft ob daten von den items die verkauft oder gekauft wurden exestieren uns speichet diese zur verwendung
             if(isset($_GET['slotID'])&& isset($_GET['isShop'])){
                 $slotID = $_GET['slotID'];
-                if (isset($_GET['isShop']) == false)
+                if ($_GET['isShop'] == 0)
                     sellItem($slotID);// wenn die gesendete slot id NICHT von einem shop kommt
                 else
                     buyItem($slotID);// wenn die gesendete slot id von einem shop kommt
 
                 //GetShopInventory($_SESSION['currentshopID']);
             }
+
             if($_GET['action'] == 'Shop1'){
                 $shopIDGlobal = 1; 
                 $_SESSION['currentshopID'] = $shopIDGlobal;

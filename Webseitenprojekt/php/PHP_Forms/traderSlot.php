@@ -1,6 +1,5 @@
 <?php 
     function getTraderItem($itemID, $slotID){
-        
         $conn = dbConnect(); 
         try{
             $query = $conn->prepare('SELECT products.name, 
@@ -30,7 +29,7 @@
                             <p>$description</p>
                         <div>
                             <input type='hidden' name='slotID' value='".$slotID."'>
-                            <input type='hidden' name='isShop' value='true'>
+                            <input type='hidden' name='isShop' value='1'>
                             <button type='submit' class='inventorySlot'>+</button>
                         </div>
                 </form>";
