@@ -63,21 +63,6 @@
  </head>
 
  <body>
- <?php 
-      if(isset($_SESSION['buyItemSucess']) && $_SESSION['buyItemSucess'] == true)
-      {    
-    ?>
-    <script>
-      //window.open('index.php');
-      window.open('PHP_Forms/playerInventory.php');
-    </script>
-    <?php 
-      $_SESSION['buyItemSucess'] = false;
-    }?>
-
-
-
-
 
     <?php include 'PHP/navbar.php'; ?>
     <video width="100vw" height="100vh"  autoplay="" loop="" muted="" playsinline="">
@@ -88,7 +73,7 @@
       if(isset($_SESSION['access']) && ($_SESSION['access'] == "user" || $_SESSION['access'] == "admin")){
         include 'PHP/PHP_Forms/accountOverviewWindow.php'; 
         include 'PHP/PHP_Forms/playerInventory.php'; 
-
+        echo $_SESSION['currentshopID'];
         if($_GET['action'] == 'coins') 
           include 'PHP/PHP_Forms/coinsWindow.php';
           
@@ -127,16 +112,6 @@
       for (const product of products)
         addProductListItem(product);
     }
-
-    <?php 
-      if(isset($_SESSION['buyItemSucess']) && $_SESSION['buyItemSucess'] == true)
-      {    
-    ?>
-      window.open('index.php');
-      // window.open('PHP_Forms/playerInventory.php');
-    <?php 
-      $_SESSION['buyItemSucess'] = false;
-    }?>
 
   </script>
 
