@@ -89,6 +89,7 @@
 				$_SESSION['access'] = $data['access'];		//Daten für den zugang
 				$_SESSION['id'] = $data['id'];				//Daten für die player Id
 				$_SESSION['EdgeCoins']= $data['EdgeCoins'];	//Daten für die EdgeCoins
+				$_SESSION['currentshopID'] = 0;
 
 				$conn = null;								//verbindung wird aufgelöst varable 
 				return true;

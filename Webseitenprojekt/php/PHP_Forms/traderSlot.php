@@ -16,10 +16,11 @@
                 $description = $data[0]['description'];
                 $image = $data[0]['image'];
                 $price = $data[0]['price'];
+                
                 //$isConsumeable = $data[0]['isConsumeable'];
                 // Display the data on the page
                 echo 
-                "<form class='inventorySlot' method ='post' >
+                "<form class='inventorySlot' method ='post' action='index.php'>
                         <img src='$image' alt='Product Image'>
                         <div>
                             <h1>$name</h1>          
@@ -28,7 +29,7 @@
                             <p>$description</p>
                         <div>
                             <input type='hidden' name='slotID' value='".$slotID."'>
-                            <input type='hidden' name='isShop' value='true'>
+                            <input type='hidden' name='isShop' value='1'>
                             <button type='submit' class='inventorySlot'>+</button>
                         </div>
                 </form>";
@@ -39,24 +40,6 @@
             userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
             $conn=null;
             return false;   
-        }
-        if($_SERVER['REQUEST_METHOD']=='POST'){
-            // if($_POST['isShop'] == true)
-            // {
-                $conn = dbConnect();
-                try{
-                    $query = $conn->prepare('UPDATE user_resources SET userId = ? WHERE user_resources.id = ?');
-                    $query->bindParam( 1, $_SESSION['id'], PDO::PARAM_INT );
-                    $query->bindParam( 2, $slotID, PDO::PARAM_INT );
-                    $query->execute();
-                }catch(Exception $e){
-                    userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
-                    $conn=null;
-                    return false;
-                }
-                $conn = null;
-            // }
-           
         }
     }
 ?>
