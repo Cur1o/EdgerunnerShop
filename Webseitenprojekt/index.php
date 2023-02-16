@@ -63,6 +63,22 @@
  </head>
 
  <body>
+ <?php 
+      if(isset($_SESSION['buyItemSucess']) && $_SESSION['buyItemSucess'] == true)
+      {    
+    ?>
+    <script>
+      //window.open('index.php');
+      window.open('PHP_Forms/playerInventory.php');
+    </script>
+    <?php 
+      $_SESSION['buyItemSucess'] = false;
+    }?>
+
+
+
+
+
     <?php include 'PHP/navbar.php'; ?>
     <video width="100vw" height="100vh"  autoplay="" loop="" muted="" playsinline="">
       <source src="videos/turntable1.mp4" type="video/mp4">
@@ -111,6 +127,17 @@
       for (const product of products)
         addProductListItem(product);
     }
+
+    <?php 
+      if(isset($_SESSION['buyItemSucess']) && $_SESSION['buyItemSucess'] == true)
+      {    
+    ?>
+      window.open('index.php');
+      // window.open('PHP_Forms/playerInventory.php');
+    <?php 
+      $_SESSION['buyItemSucess'] = false;
+    }?>
+
   </script>
 
 </html>

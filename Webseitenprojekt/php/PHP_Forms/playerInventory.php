@@ -3,6 +3,8 @@
     require_once('PHP/account.php');
     require_once('PHP/admin.php');
 
+    $_SESSION['buyItemSucess'] = false;
+
     function getItemsInInventory(){
         $conn = dbConnect();
         try{
@@ -71,6 +73,10 @@
             $query->bindParam( 2, $slotID, PDO::PARAM_INT );
             $query->execute();
             
+            $_SESSION['buyItemSucess'] = true;
+
+
+
             // if($data = $query->fetchAll(PDO::FETCH_ASSOC)){
             // }
         }catch(Exception $e){
@@ -109,9 +115,9 @@
             getItemsInInventory();
             
             // Überprüft ob daten von den items die verkauft oder gekauft wurden exestieren uns speichet diese zur verwendung
-            if(isset($_GET['slotID'])&& isset($_GET['isShop'])){
-                $slotID = $_GET['slotID'];
-                if ($_GET['isShop'] == 0)
+            if(isset($_POST['slotID'])&& isset($_POST['isShop'])){
+                $slotID = $_POST['slotID'];
+                if ($_POST['isShop'] == 0)
                     sellItem($slotID);// wenn die gesendete slot id NICHT von einem shop kommt
                 else
                     buyItem($slotID);// wenn die gesendete slot id von einem shop kommt

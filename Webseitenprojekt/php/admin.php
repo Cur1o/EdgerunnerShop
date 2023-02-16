@@ -28,6 +28,7 @@
 		$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php	
 		try{
 			if($image!=null)
+			//TODO:Change to prepared
 				$query = $conn->prepare('UPDATE products SET name = "'.$name.'", description = "'.$description.'", image = '.$image.', price = '.$price.', isConsumeable = '.$consumeable.' WHERE productId = '.$productId.';');
 			else
 				$query = $conn->prepare('UPDATE products SET name = "'.$name.'", description = "'.$description.'",  price = '.$price.', isConsumeable = '.$consumeable.' WHERE productId = '.$productId.';');

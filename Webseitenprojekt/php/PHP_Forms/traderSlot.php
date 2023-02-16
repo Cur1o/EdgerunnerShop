@@ -20,7 +20,7 @@
                 //$isConsumeable = $data[0]['isConsumeable'];
                 // Display the data on the page
                 echo 
-                "<form class='inventorySlot' method ='get' action='index.php'>
+                "<form class='inventorySlot' method ='post' action='index.php'>
                         <img src='$image' alt='Product Image'>
                         <div>
                             <h1>$name</h1>          
