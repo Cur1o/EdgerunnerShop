@@ -22,3 +22,6 @@
 		}?>
 	</div>
 </nav>
+<?php 
+	$coinsvalue = $_SESSION['EdgeCoins'];
+?>

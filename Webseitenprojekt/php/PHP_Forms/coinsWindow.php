@@ -1,6 +1,6 @@
     <section class="cointsWindow">
         <article id="coinsWindowArticle" z-index="1" background-color='white'>
-            <form action="./" method="post">
+            <form action="./" method="post"><!-- Der Link führt auf die Startseite zurück -->    
                 <input type="hidden" name="button500" value="true"/> 
                 <h2 class="realMoney">4.99€</h2>
                 <input type="image" src="images/Shopcoin500.png" alt="500"/>             

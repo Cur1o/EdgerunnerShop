@@ -20,22 +20,9 @@
     if(isValidNick( $_POST['nick']))
       login( strip_tags($_POST['nick']), strip_tags($_POST['password']) );
 
-
   //logout
   if( isset($_GET['action'] ) && $_GET['action'] == "logout" )
     logout();
-
-  //change product
-  if(isset($_POST['enter']) && $_POST['enter']== 'Produkt ändern'){
-    $isConsumeable = 0;
-    if(isset($_POST['isConsumeable']) && $_POST['isConsumeable'] ="on")
-      $isConsumeable = 1;
-    changeProduct( strip_tags($_POST['productId']), strip_tags($_POST['name']), strip_tags($_POST['description']), strip_tags( $_POST['price']), $isConsumeable);
-  }
-
-  //delete product
-  if(isset($_POST['enter']) && $_POST['enter']== 'Produkt löschen')
-    deleteProduct( strip_tags($_POST['productId']));
 
   //delete user
   if(isset($_POST['enter']) && $_POST['enter']== 'User löschen')
@@ -63,28 +50,29 @@
  </head>
 
  <body>
-
-    <?php include 'PHP/navbar.php'; ?>
-    <video width="100vw" height="100vh"  autoplay="" loop="" muted="" playsinline="">
+    <!-- Die Nav Bar wird in die seite eingebunden -->
+    <?php include 'PHP/navbar.php'; ?>  
+    <!-- Die einbettung des videos im Hintergrund -->
+    <video width="100vw" height="100vh"  autoplay="" loop="" muted="" playsinline=""> 
       <source src="videos/turntable1.mp4" type="video/mp4">
       Ihr Browser unterstützt keine HTML5-Video.
     </video>
     <?php
-      if(isset($_SESSION['access']) && ($_SESSION['access'] == "user" || $_SESSION['access'] == "admin")){
-        include 'PHP/PHP_Forms/accountOverviewWindow.php'; 
-        include 'PHP/PHP_Forms/playerInventory.php'; 
-
+      //Wenn die acces session variable gesetzt wurde und diese dem user oder dem Admin zugeortnet ist.
+      if(isset($_SESSION['access']) && ($_SESSION['access'] == "user" || $_SESSION['access'] == "admin")){ 
+        include 'PHP/PHP_Forms/accountOverviewWindow.php'; // Dis Profilübersicht wird geladen
+        include 'PHP/PHP_Forms/playerInventory.php'; //Das spieler inventar wird geladen
+        //Die Action wird durch einen link in navbar aufgerufen.
         if($_GET['action'] == 'coins') 
-          include 'PHP/PHP_Forms/coinsWindow.php';
-          
+          include 'PHP/PHP_Forms/coinsWindow.php';  //Das fenster zum Münzen kaufen wird eingebunden
+        // Wenn der Admin sich angemeldet hat 
         if($_SESSION['access'] == "admin"){
-          include 'PHP/PHP_Forms/adminPanel.php';  
-          $_SESSION['userList'] = getUserList();
-          $_SESSION['productList'] = getProductList();
+          include 'PHP/PHP_Forms/adminPanel.php'; //Die Seite für die Benutzerliste wird eingebunden
+          $_SESSION['userList'] = getUserList();  //Die Nutzerliste wird abgefragt
         }
       }
-      else if(isset($_GET['action'])){
-        if($_GET['action'] == "register")
+      else if(isset($_GET['action'])){  //wenn kein benutzer Angemeldet ist oder er sich ausloggt
+        if($_GET['action'] == "register") //Wenn der regestrierungsknopf in navbar gedrückt wird
           include 'PHP/PHP_Forms/registerWindow.php';
         else if( $_GET['action'] == 'login')
           include 'PHP/PHP_Forms/loginWindow.php';
@@ -104,16 +92,7 @@
       let users = JSON.parse(userList);
       for (const user of users)
         addUserListItem(user.nick, user.access);
-    }
-
-    let productList = '<?php if( isset($_SESSION['productList'])){echo $_SESSION['productList'];}?>';
-    if(productList != null && productList !=""){
-      let products = JSON.parse(productList);
-      for (const product of products)
-        addProductListItem(product);
-    }
-
-    
+    }  
   </script>
 
 </html>

@@ -2,9 +2,6 @@
     require_once('PHP/init.php');
     require_once('PHP/account.php');
     require_once('PHP/admin.php');
-
-    $_SESSION['buyItemSucess'] = false;
-
     function getItemsInInventory(){
         $conn = dbConnect();
         try{
@@ -25,8 +22,7 @@
                 } 
                 echo '</div>';
             }else{
-                
-
+                echo'Dein Inventar ist Leer';
             }
             $conn = null;
         }catch(Exception $e){
@@ -56,7 +52,7 @@
                 } 
                 echo '</div>';
             }else{
-                //TODO:
+                sortErrorInventory();
             }
             $conn = null;
         }catch(Exception $e){
@@ -66,13 +62,15 @@
         }
     }
     //Buy an item from the shop
-    function buyItem($slotID) {
+    function buyItem($slotID,$price) {
         $conn = dbConnect();
         try{
             $query = $conn->prepare('UPDATE user_resources SET userId = ? WHERE user_resources.id = ?');
             $query->bindParam( 1, $_SESSION['id'], PDO::PARAM_INT );
             $query->bindParam( 2, $slotID, PDO::PARAM_INT );
             $query->execute();
+            RemoveUserCoins($price);
+            $coinsvalue = $_SESSION['EdgeCoins'];
         }catch(Exception $e){
             userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
             $conn=null;
@@ -81,13 +79,15 @@
         $conn = null;
     }
     //sell an item to the shop
-    function sellItem($slotID) {
+    function sellItem($slotID,$price) {
         $conn = dbConnect();
         try{
             $query = $conn->prepare('UPDATE user_resources SET userId = ? WHERE id = ? ');
             $query->bindParam( 1, $_SESSION['currentshopID'], PDO::PARAM_INT );
             $query->bindParam( 2, $slotID, PDO::PARAM_INT );
             $query->execute();
+            AddUserCoin($price);
+            $coinsvalue = $_SESSION['EdgeCoins'];
         }catch(Exception $e){
             echo 'FEHLER';
             userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
@@ -100,13 +100,13 @@
     function sortErrorInventory(){
         switch ($_SESSION['currentshopID']) {
             case '1':
-                echo 'Der scho hat gerade nichts im angebot';    
+                echo 'Der shop hat gerade nichts im angebot';    
                 break;
             case '2':
-                echo 'Der scho hat gerade nichts im angebot';
+                echo 'Der shop hat gerade nichts im angebot';
                 break;
             case '3':
-                echo 'Der scho hat gerade nichts im angebot';
+                echo 'Der shop hat gerade nichts im angebot';
                 break;
             default:
                
@@ -119,19 +119,26 @@
 <section class="playerInventoryFrame">
         <?php 
             // Überprüft ob daten von den items die verkauft oder gekauft wurden exestieren uns speichet diese zur verwendung
-            if(isset($_POST['slotID'])&& isset($_POST['isShop'])){
+            if(isset($_POST['slotID'])&& isset($_POST['isShop'])&& isset($_POST['price'])){
                 $slotID = $_POST['slotID'];
-                if ($_POST['isShop'] == 0)
-                    sellItem($slotID);// wenn die gesendete slot id NICHT von einem shop kommt
+                $price = $_POST['price'];
+                if ($_POST['isShop'] == 0 )
+                sellItem($slotID,$price);// wenn die gesendete slot id NICHT von einem shop kommt
+                elseif($_SESSION['EdgeCoins'] >= $price)
+                buyItem($slotID,$price);// wenn die gesendete slot id von einem shop kommt
                 else
-                    buyItem($slotID);// wenn die gesendete slot id von einem shop kommt
+                {
+                ?>
+                    <script>
+                        alert("Du hast zu wenig edge coins bitte kaufe mehr indem du oben auf deine coins drückst")
+                    </script>
+                <?php
+                }   
             }
-
             getItemsInInventory();
             if($_GET['action'] == 'noShop'){
                 $shopIDGlobal = -1; 
                 $_SESSION['currentshopID'] = $shopIDGlobal;
-
             } 
             if($_GET['action'] == 'Shop1'){
                 $shopIDGlobal = 1; 
@@ -141,8 +148,7 @@
             if($_GET['action'] == 'Shop2'){
                 $shopIDGlobal = 2;
                 $_SESSION['currentshopID'] = $shopIDGlobal;
-            }
-                
+            }  
             if($_GET['action'] == 'Shop3'){
                 $shopIDGlobal = 3;
                 $_SESSION['currentshopID'] = $shopIDGlobal;

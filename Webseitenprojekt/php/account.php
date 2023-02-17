@@ -151,6 +151,10 @@
 	}
 
 	function logout(){
+		include_once 'PHP_Forms/traderInventoryRefill.php';
+		for ($i=1; $i < 4; $i++) { 
+			whipeTrader($i);
+		}
 		unset( $_SESSION['nick'] );
 		unset( $_SESSION['access'] );
 		unset( $_SESSION['image'] );
@@ -179,5 +183,17 @@
 
 	function RemoveUserCoins($coins){
 		$newCoins = $_SESSION['EdgeCoins'] -= $coins;
+		$conn = dbConnect();
+		try{
+			//'UPDATE users SET EdgeCoins = ? WHERE id = ?;
+			$query = $conn->prepare('UPDATE users SET EdgeCoins = ? WHERE id = ?;');
+			$query->bindParam(1,$newCoins, PDO::PARAM_STR);
+			$query->bindParam(2,$_SESSION['id'], PDO::PARAM_STR);
+			$query->execute();
+		}catch(Exception $e){
+			userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
+			$conn = null;
+			return false;
+		}
 	}
 ?>

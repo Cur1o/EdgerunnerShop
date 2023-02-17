@@ -4,7 +4,7 @@
         try{
             $query = $conn->prepare('SELECT products.name, 
             products.description, products.image, 
-            products.price, products.isConsumeable
+            products.price, products.damage , products.itemtype
             FROM products
             WHERE products.id = ?');
             $query->bindParam( 1, $itemID, PDO::PARAM_INT );
@@ -17,7 +17,8 @@
                 $image = $data[0]['image'];
                 $price = $data[0]['price'];
                 $sellprice = $price/2;
-                $isConsumeable = $data[0]['isConsumeable'];
+                $damage = $data[0]['damage']; 
+                
                 // Display the data on the page
                 echo 
                 "<form class='inventorySlot' method ='post' action='index.php'>
@@ -26,14 +27,25 @@
                             <h1>$name</h1>          
                             <p>Wert: $sellprice</p>
                         </div>
-                            <p>$description</p>
                         <div>
-                            <input type='hidden' name='slotID' value='".$slotID."'>
+                            <p>$description</p>";
+                        if($data[0]['itemtype'] == 'weapon')
+                            echo"<p>schaden: $damage</p>";
+                   echo"</div>
+                        <div> ";
+                    if($_SESSION['currentshopID'] >= 1){
+                    echo"
+                        
+                            <input type='hidden' name='slotID' value='$slotID'>
                             <input type='hidden' name='isShop' value='0'>
+                            <input type='hidden' name='price' value='$sellprice'>
                             <button type='submit' class='inventorySlot'>-</button>
-                        </div>
-                </form>";
-                //echo "<p>Is Consumeable: $isConsumeable</p>";
+                        
+                    ";}
+                echo"</div>
+                    </form>";
+
+                
             }
             $conn = null;
         }catch(Exception $e){

@@ -4,7 +4,7 @@
         try{
             $query = $conn->prepare('SELECT products.name, 
             products.description, products.image, 
-            products.price, products.isConsumeable
+            products.price, products.damage, products.itemtype
             FROM products
             WHERE products.id = ?');
             $query->bindParam( 1, $itemID, PDO::PARAM_INT );
@@ -16,24 +16,30 @@
                 $description = $data[0]['description'];
                 $image = $data[0]['image'];
                 $price = $data[0]['price'];
+                $damage = $data[0]['damage'];
                 
-                //$isConsumeable = $data[0]['isConsumeable'];
+                
                 // Display the data on the page
                 echo 
                 "<form class='inventorySlot' method ='post' action='index.php'>
                         <img src='$image' alt='Product Image'>
                         <div>
                             <h1>$name</h1>          
-                            <p>Wert: $price</p>
+                            <p>Preis: $price</p>
                         </div>
-                            <p>$description</p>
                         <div>
-                            <input type='hidden' name='slotID' value='".$slotID."'>
+                            <p>$description</p>";
+                        if($data[0]['itemtype'] == 'weapon')
+                            echo"<p>Schaden: $damage</p>";
+                echo"        </div>
+                        <div>
+                            <input type='hidden' name='slotID' value='$slotID'>
                             <input type='hidden' name='isShop' value='1'>
+                            <input type='hidden' name='price' value='$price'>
                             <button type='submit' class='inventorySlot'>+</button>
                         </div>
                 </form>";
-                //echo "<p>Is Consumeable: $isConsumeable</p>";
+                
             }
             $conn = null;
         }catch(Exception $e){
