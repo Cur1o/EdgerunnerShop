@@ -135,7 +135,6 @@
                 <?php
                 }   
             }
-            getItemsInInventory();
             if($_GET['action'] == 'noShop'){
                 $shopIDGlobal = -1; 
                 $_SESSION['currentshopID'] = $shopIDGlobal;
@@ -153,6 +152,7 @@
                 $shopIDGlobal = 3;
                 $_SESSION['currentshopID'] = $shopIDGlobal;
             }
+            getItemsInInventory();
             GetShopInventory($_SESSION['currentshopID']);
         ?>
 </section>
