@@ -1,5 +1,5 @@
 <?php 
-	$coinsvalue = $_SESSION['EdgeCoins'];
+	
 ?>
 <nav>
 	<div class="HomepageLink">
@@ -7,7 +7,8 @@
 	</div>
 	
 	<div>
-		<a href="index.php?action=coins" ><?php echo($coinsvalue) ?></a>
+		<a href="index.php?action=coins" ><?php  echo($coinsvalue); ?></a>
+		
 		<?php if(!isset($_SESSION['nick'])) {
 			echo '
 			<a href="index.php?action=login" >Login</a>

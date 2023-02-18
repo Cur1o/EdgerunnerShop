@@ -21,8 +21,11 @@
                     getItem($itemID,$slotID);
                 } 
                 echo '</div>';
-            }else{
-                echo'Dein Inventar ist Leer';
+            }else {
+                echo '<div class="inventorySlotContainer">';
+                echo '<h1 class="inventoryName">'.$_SESSION['nick'].'</h1>';
+                echo '<form>Dein Inventar ist Leer</form>';
+                echo '</div>';
             }
             $conn = null;
         }catch(Exception $e){
@@ -51,8 +54,11 @@
                     getTraderItem($itemID,$slotID);
                 } 
                 echo '</div>';
-            }else{
-                sortErrorInventory();
+            }elseif($_SESSION['currentshopID'] != -1){
+                echo '<div class="inventorySlotContainer">';
+                echo '<h1 class="inventoryName">Shop '.$shopID.'</h1>';
+                echo'<form>Der Shop hat zur zeit keine neuen angebote</form> ';
+                echo '</div>';
             }
             $conn = null;
         }catch(Exception $e){
@@ -95,25 +101,7 @@
             return false;
         }
         $conn = null;
-    }
-
-    function sortErrorInventory(){
-        switch ($_SESSION['currentshopID']) {
-            case '1':
-                echo 'Der shop hat gerade nichts im angebot';    
-                break;
-            case '2':
-                echo 'Der shop hat gerade nichts im angebot';
-                break;
-            case '3':
-                echo 'Der shop hat gerade nichts im angebot';
-                break;
-            default:
-               
-                break;
-        }
-    }
-          
+    }         
     //end of PHP -------------------------------------------------------------------------------------------------------------------------------
 ?>
 <section class="playerInventoryFrame">

@@ -50,18 +50,24 @@
  </head>
 
  <body>
-    <!-- Die Nav Bar wird in die seite eingebunden -->
-    <?php include 'PHP/navbar.php'; ?>  
+    
+    <?php if($_SESSION['currentshopID'] == -1)
+          include_once 'PHP/navbar.php';  //im normalen gebrauch wird die nav bar zuerst geladen
+     ?>
     <!-- Die einbettung des videos im Hintergrund -->
     <video width="100vw" height="100vh"  autoplay="" loop="" muted="" playsinline=""> 
       <source src="videos/turntable1.mp4" type="video/mp4">
       Ihr Browser unterstützt keine HTML5-Video.
     </video>
+    
     <?php
       //Wenn die acces session variable gesetzt wurde und diese dem user oder dem Admin zugeortnet ist.
       if(isset($_SESSION['access']) && ($_SESSION['access'] == "user" || $_SESSION['access'] == "admin")){ 
         include 'PHP/PHP_Forms/accountOverviewWindow.php'; // Dis Profilübersicht wird geladen
         include 'PHP/PHP_Forms/playerInventory.php'; //Das spieler inventar wird geladen
+        if($_SESSION['currentshopID'] != -1)
+          include_once 'PHP/navbar.php';
+          
         //Die Action wird durch einen link in navbar aufgerufen.
         if($_GET['action'] == 'coins') 
           include 'PHP/PHP_Forms/coinsWindow.php';  //Das fenster zum Münzen kaufen wird eingebunden
@@ -78,6 +84,8 @@
           include 'PHP/PHP_Forms/loginWindow.php';
       }
     ?>
+    <!-- Die Nav Bar wird in die seite eingebunden -->
+    <?php include 'PHP/navbar.php'; ?>  
 
   </body>
 
