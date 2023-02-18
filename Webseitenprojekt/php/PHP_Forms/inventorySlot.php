@@ -41,7 +41,7 @@
                         <input type='hidden' name='slotID' value='$slotID'>
                         <input type='hidden' name='isShop' value='0'>
                         <input type='hidden' name='price' value='$sellprice'>
-                        <button type='submit' class='inventorySlot'>-</button>  
+                        <button type='submit' class='inventorySlot'>+$</button>  
                     ";}
                 echo"</div>
                     </form>";

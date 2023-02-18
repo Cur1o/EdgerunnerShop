@@ -64,12 +64,13 @@
       //Wenn die acces session variable gesetzt wurde und diese dem user oder dem Admin zugeortnet ist.
       if(isset($_SESSION['access']) && ($_SESSION['access'] == "user" || $_SESSION['access'] == "admin")){ 
         include 'PHP/PHP_Forms/accountOverviewWindow.php'; // Dis Profilübersicht wird geladen
-        include 'PHP/PHP_Forms/playerInventory.php'; //Das spieler inventar wird geladen
+        if(($_GET['action'] != 'coins'))
+          include 'PHP/PHP_Forms/playerInventory.php'; //Das spieler inventar wird geladen
         if($_SESSION['currentshopID'] != -1)
           include_once 'PHP/navbar.php';
           
         //Die Action wird durch einen link in navbar aufgerufen.
-        if($_GET['action'] == 'coins') 
+        if($_GET['action'] == 'coins') // die action wird durch navbar.php ausgelöst
           include 'PHP/PHP_Forms/coinsWindow.php';  //Das fenster zum Münzen kaufen wird eingebunden
         // Wenn der Admin sich angemeldet hat 
         if($_SESSION['access'] == "admin"){

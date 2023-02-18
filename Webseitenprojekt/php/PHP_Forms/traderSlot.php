@@ -38,7 +38,7 @@
                             <input type='hidden' name='slotID' value='$slotID'>
                             <input type='hidden' name='isShop' value='1'>
                             <input type='hidden' name='price' value='$price'>
-                            <button type='submit' class='inventorySlot'>+</button>
+                            <button type='submit' class='inventorySlot'>-$</button>
                         </div>
                 </form>"; 
             }
