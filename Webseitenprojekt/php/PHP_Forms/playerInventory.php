@@ -82,7 +82,7 @@
     function buyItem($slotID,$price) {  //Methode wird unten im Dokument Aufgerufen.
         $conn = dbConnect();            //Datenbankverbindung wird Aufgebaunt.
         try{
-            $query = $conn->prepare('UPDATE user_resources SET userId = ? WHERE user_resources.id = ?');
+            $query = $conn->prepare('UPDATE user_resources SET userId = ? WHERE id = ?');
             $query->bindParam( 1, $_SESSION['id'], PDO::PARAM_INT );    //Prepared Statment für Sicherheit Die aktuelle Spieler Id wird übergeben.
             $query->bindParam( 2, $slotID, PDO::PARAM_INT );            //Prepared Statment für Sicherheit Die slot id des zu enderdem Slots wird übergeben.
             $query->execute();                                          //Die datenbankänderung wird ausgeführt.
@@ -100,8 +100,9 @@
     //Items im Shop verkaufen ---------------------------------------------------------------------------------
     function sellItem($slotID,$price) { //Methode wird unten im Dokument Aufgerufen.
         $conn = dbConnect();            //Datenbankverbindung wird Aufgebaunt.
+        echo $_SESSION['currentshopID'];
         try{
-            $query = $conn->prepare('UPDATE user_resources SET userId = ? WHERE user_resurces.id = ? ');
+            $query = $conn->prepare('UPDATE user_resources SET userId = ? WHERE id = ? ');
             $query->bindParam( 1, $_SESSION['currentshopID'], PDO::PARAM_INT );
             $query->bindParam( 2, $slotID, PDO::PARAM_INT );
             $query->execute();

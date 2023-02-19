@@ -33,7 +33,7 @@
                             echo"<p>schutz: $damage</p>";
                         if($data[0]['itemtype'] == 'item')
                             echo"<p>effektdauer: $damage</p>";
-                echo"        </div>
+                        echo"</div>
                         <div>
                             <input type='hidden' name='slotID' value='$slotID'>
                             <input type='hidden' name='isShop' value='1'>
