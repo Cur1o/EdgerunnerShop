@@ -49,6 +49,7 @@
 			echo "New record created successfully";	//nachricht wird ausgegeben
 			userMessage("Du bist registriert als".$nick."!");
 			login($nick, $password);	//nach dem registrieren wird der nutzer automatisch eingeloggt
+			AddUserCoin(1500);
 		}
 		catch(Exception $e){//falls ein fehler auftritt wird der teil ausgeführt und der Fehler ausgegeben
 			userMessage('Es ist Fehler aufgetreten'.$e->getMessage());

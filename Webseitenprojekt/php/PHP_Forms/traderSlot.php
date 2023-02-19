@@ -4,20 +4,20 @@
         try{
             $query = $conn->prepare('SELECT products.name, 
             products.description, products.image, 
-            products.price, products.damage, products.itemtype
+            products.price, products.itemValues, products.itemtype
             FROM products
             WHERE products.id = ?');
             $query->bindParam( 1, $itemID, PDO::PARAM_INT );    //alle obengenanten daten werden aus der datenbank für das item mit der angegebenen id geholt
             $query->execute();  //Datenbank abfrage ausführen
             if($data = $query->fetchAll(PDO::FETCH_ASSOC))
             {   
-                // Hier wenden alle werte aus der datenbank in variablen geschrieben
-                $name = $data[0]['name'];   //der Name aus der Datenbank wird gespeichert
-                $description = $data[0]['description']; //Die beschreibung aus der datenbank wird gespeichert
-                $image = $data[0]['image']; //der dateipfad zu den bildern aus der Datenbank wird gespeichert
-                $price = $data[0]['price']; //der Preis aus der Datenbank wird gespeichert
-                $damage = $data[0]['damage']; //der Schaden / der schutz und die effectdauer werden in damage gespeichert
-                //Aufbau des inventar slots der im Invebntar angezeigt wird
+                // Hier wenden alle werte aus der datenbank in variablen geschrieben.
+                $name = $data[0]['name'];               //der Name aus der Datenbank wird gespeichert.
+                $description = $data[0]['description']; //Die beschreibung aus der datenbank wird gespeichert.
+                $image = $data[0]['image'];             //der dateipfad zu den bildern aus der Datenbank wird gespeichert.
+                $price = $data[0]['price'];             //der Preis aus der Datenbank wird gespeichert.
+                $itemValues = $data[0]['itemValues'];           //der Schaden / der schutz und die effectdauer werden in damage gespeichert.
+                //Aufbau des inventar slots der im Invebntar angezeigt wird.
                 echo 
                 "<form class='inventorySlot' method ='post' action='index.php'>
                         <img src='$image' alt='Product Image'>
@@ -27,12 +27,13 @@
                         </div>
                         <div>
                             <p>$description</p>";
-                        if($data[0]['itemtype'] == 'weapon')
-                            echo"<p>schaden: $damage</p>";
+                        if($data[0]['itemtype'] == 'weapon')//
+                            echo"<p>schaden: $itemValues</p>";
                         if($data[0]['itemtype'] == 'amor')
-                            echo"<p>schutz: $damage</p>";
+                            echo"<p>schutz: $itemValues</p>";
                         if($data[0]['itemtype'] == 'item')
-                            echo"<p>effektdauer: $damage</p>";
+                            echo"<p>effektdauer: $itemValues</p>";
+                        //die daten die von dem slot übergeben werden müssen wird in playerInventory.php ausgewertet
                         echo"</div>
                         <div>
                             <input type='hidden' name='slotID' value='$slotID'>

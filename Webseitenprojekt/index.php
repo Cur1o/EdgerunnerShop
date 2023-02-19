@@ -1,7 +1,6 @@
 <?php
   require_once('PHP/init.php');
   require_once('PHP/account.php');
-  require_once('PHP/admin.php');
 
   if(isset($_POST['button500'])) AddUserCoin(500);
   if(isset($_POST['button1000'])) AddUserCoin(1000);
@@ -23,18 +22,6 @@
   //logout
   if( isset($_GET['action'] ) && $_GET['action'] == "logout" )
     logout();
-
-  //delete user
-  if(isset($_POST['enter']) && $_POST['enter']== 'User löschen')
-    deleteUser( strip_tags($_POST['nick']));
-
-//lock user
-  if(isset($_POST['enter']) && $_POST['enter']== 'User sperren')
-    setUserAccess( strip_tags($_POST['nick']),"locked");
-  
-  //unlock user
-  if(isset($_POST['enter']) && $_POST['enter']== 'User entsperren')
-    setUserAccess( strip_tags($_POST['nick']),"user");
 
 ?>
 
@@ -74,8 +61,7 @@
           include 'PHP/PHP_Forms/coinsWindow.php';  //Das fenster zum Münzen kaufen wird eingebunden
         // Wenn der Admin sich angemeldet hat 
         if($_SESSION['access'] == "admin"){
-          include 'PHP/PHP_Forms/adminPanel.php'; //Die Seite für die Benutzerliste wird eingebunden
-          $_SESSION['userList'] = getUserList();  //Die Nutzerliste wird abgefragt
+          //falls später mal ein Admin besondere rechte haben soll
         }
       }
       else if(isset($_GET['action'])){  //wenn kein benutzer Angemeldet ist oder er sich ausloggt
@@ -89,19 +75,10 @@
     <?php include 'PHP/navbar.php'; ?>  
 
   </body>
-
-  <script src="JS/admin.js"></script>
   <script>
     let nickName = "<?php if(isset($_SESSION['nick'])){echo $_SESSION['nick'];}?>";
     if(nick != null && nick !="")
       document.getElementById("nick").innerText = "Angemeldet als "+ nickName;
-
-    let userList = '<?php if(isset($_SESSION['userList'])){echo $_SESSION['userList'];}?>';
-    if(userList != null && userList !=""){
-      let users = JSON.parse(userList);
-      for (const user of users)
-        addUserListItem(user.nick, user.access);
-    }  
   </script>
 
 </html>
