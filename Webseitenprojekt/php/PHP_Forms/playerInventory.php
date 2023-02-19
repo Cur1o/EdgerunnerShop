@@ -88,21 +88,21 @@
             $query->bindParam( 2, $slotID, PDO::PARAM_INT );            //Prepared Statment für Sicherheit Die slot id des zu enderdem Slots wird übergeben.
             $query->execute();                                          //Die datenbankänderung wird ausgeführt.
             RemoveUserCoins($price);                                    //Metode zum Coins abziehen in accaunt.php wird aufgerufen. Der preis wird übergeben.
-            $coinsvalue = $_SESSION['EdgeCoins'];                       //
-        }catch(Exception $e){
-            userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
-            $conn=null;
-            return false;
+            $coinsvalue = $_SESSION['EdgeCoins'];                       //Coins Value wiird gesetzt        
+        }catch(Exception $e){                                           //Wenn die Datenbankverbindung fehlschlägt.
+            userMessage('Es ist Fehler aufgetreten'.$e->getMessage());  //Fehlerausgabe an den Nutzer.
+            $conn=null;                                                 //Datenbankverbindung wird getrennt.
+            return false;                                               //Es wird false zurückgegeben.
         }
-        $conn = null;
+        $conn = null;                                                   //Datenbanverbindung wird getrennt.
     }
     //ENDE: SHOP kaufen ---------------------------------------------------------------------------------------
     
     //Items im Shop verkaufen ---------------------------------------------------------------------------------
-    function sellItem($slotID,$price) {
-        $conn = dbConnect();
+    function sellItem($slotID,$price) { //Methode wird unten im Dokument Aufgerufen.
+        $conn = dbConnect();            //Datenbankverbindung wird Aufgebaunt.
         try{
-            $query = $conn->prepare('UPDATE user_resources SET userId = ? WHERE id = ? ');
+            $query = $conn->prepare('UPDATE user_resources SET userId = ? WHERE user_resurces.id = ? ');
             $query->bindParam( 1, $_SESSION['currentshopID'], PDO::PARAM_INT );
             $query->bindParam( 2, $slotID, PDO::PARAM_INT );
             $query->execute();
@@ -125,8 +125,8 @@
             if(isset($_POST['slotID'])&& isset($_POST['isShop'])&& isset($_POST['price'])){
                 $slotID = $_POST['slotID'];
                 $price = $_POST['price'];
-                if ($_POST['isShop'] == 0 )                 //
-                sellItem($slotID,$price);                   // 
+                if ($_POST['isShop'] == 0 )                 
+                sellItem($slotID,$price);                    
                 elseif($_SESSION['EdgeCoins'] >= $price)    // Dass der Spieler wenn er ztu wenig münzen hat auch nichtsmehr kaufen kann
                 buyItem($slotID,$price);                    // wenn die gesendete slot id von einem shop kommt
                 else
@@ -138,21 +138,21 @@
                 <?php
                 }   
             }
-            if($_GET['action'] == 'noShop'){//wenn auf die Startseite zurückgekehrt wird
-                $shopIDGlobal = -1; //-1 weil keine id -1 in der Datenbank exestiert. Aufruf von navbar.php(EdgerunnerMarket)
+            if($_GET['action'] == 'noShop'){                //wenn auf die Startseite zurückgekehrt wird
+                $shopIDGlobal = -1;                         //-1 weil keine id -1 in der Datenbank exestiert. Aufruf von navbar.php(EdgerunnerMarket)
                 $_SESSION['currentshopID'] = $shopIDGlobal; //Die -1 wird in die session eiungetragen
             } 
-            if($_GET['action'] == 'Shop1'){ //Wenn der 1 Shop geöffnet wird. Aufruf von navbar.php (Waffen)
-                $shopIDGlobal = 1; //shop id wird auf 1 gesetzt entspricht in der datenbank dem platz 1
+            if($_GET['action'] == 'Shop1'){                 //Wenn der 1 Shop geöffnet wird. Aufruf von navbar.php (Waffen)
+                $shopIDGlobal = 1;                          //shop id wird auf 1 gesetzt entspricht in der datenbank dem platz 1
                 $_SESSION['currentshopID'] = $shopIDGlobal;
 
             }    
-            if($_GET['action'] == 'Shop2'){ //Wenn der 1 Shop geöffnet wird. Aufruf von navbar.php (Schutz)
-                $shopIDGlobal = 2;  //shop id wird auf 1 gesetzt entspricht in der datenbank dem platz 2
+            if($_GET['action'] == 'Shop2'){                 //Wenn der 1 Shop geöffnet wird. Aufruf von navbar.php (Schutz)
+                $shopIDGlobal = 2;                          //shop id wird auf 1 gesetzt entspricht in der datenbank dem platz 2
                 $_SESSION['currentshopID'] = $shopIDGlobal;
             }  
-            if($_GET['action'] == 'Shop3'){ //Wenn der 1 Shop geöffnet wird. Aufruf von navbar.php (sonstiges)
-                $shopIDGlobal = 3;  //shop id wird auf 1 gesetzt entspricht in der datenbank dem platz 3
+            if($_GET['action'] == 'Shop3'){                 //Wenn der 1 Shop geöffnet wird. Aufruf von navbar.php (sonstiges)
+                $shopIDGlobal = 3;                          //shop id wird auf 1 gesetzt entspricht in der datenbank dem platz 3
                 $_SESSION['currentshopID'] = $shopIDGlobal;
             }
             getItemsInInventory();

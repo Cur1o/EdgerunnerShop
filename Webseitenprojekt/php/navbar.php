@@ -1,4 +1,7 @@
 <nav>
+	<?php 
+		$coinsvalue = $_SESSION['EdgeCoins'];
+	?>
 	<div class="HomepageLink">
 		<!-- Hier wird die action noShop in playerInventory.php aufgerufen -->
 		<a href="index.php?action=noShop" id="HomepageName">Edgerunner Market</a>	
@@ -25,6 +28,3 @@
 		}?>
 	</div>
 </nav>
-<?php 
-	$coinsvalue = $_SESSION['EdgeCoins'];
-?>
