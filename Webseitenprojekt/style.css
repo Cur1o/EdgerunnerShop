@@ -46,8 +46,6 @@ nav{
 	padding:0.5rem;
 	font-family: 'normalLetters','cyberpunk',Arial;
 	font-size:1.2rem;
-	/*border-bottom: 0.2rem solid var(--borderCol);*/
-
 }
 nav a{
 	padding:.5rem;
@@ -86,12 +84,13 @@ nav a:first-letter{
 	height:512px !important;
 	width: 256px !important;
 	transition: all .2s ease-in-out;
+	background:linear-gradient(-45deg, transparent 25px, var(--bgColContent) 0) !important;
 	
 }
 /* wenn über die karten felder gehovert wird */
 #coinsWindowArticle form:hover{
-	scale: 1.1 !important;
-	background-color: var(--hoverCol);
+	scale: 1.05 !important;
+	background:linear-gradient(-45deg, transparent 25px, var(--hoverCol) 0) !important;
 
 }
 /* Für den Betrag unter den Felden */
@@ -128,10 +127,10 @@ nav a:first-letter{
 	flex-direction:column;
 	overflow-y: scroll !important;
 	scrollbar-width: none;
+	background:linear-gradient(-45deg, transparent 20px, var(--bgColContent) 0) !important;
 	
 }
 .inventorySlot{
-	background-color: var(--themeColContent) !important;
 	width:35vw !important;
 	height:6vh !important;
 	display:flex !important;
@@ -141,18 +140,21 @@ nav a:first-letter{
 	margin : 1rem auto !important;
 	z-index:2 !important;
 	transition: all .2s ease-in-out;
+	background:linear-gradient(-45deg, transparent 10px, var(--bgColContent) 0) !important;
 }
 .inventorySlot > :last-child{
 	margin-left:auto;
 }
 .inventorySlot:hover{
-	scale: 1.1 !important;
-	background-color: var(--hoverCol) !important;
+	scale: 1.05 !important;
+	background-color: var(-) !important;
+	background:linear-gradient(-45deg, transparent 10px, var(--hoverCol) 0) !important;
 }
 .inventorySlot img{
-	background-color: aqua;
+	background-color: rgb(0, 229, 255)!important;
 	width:auto;
 	height:6vh;
+	background:linear-gradient(-45deg, transparent 10px, #F3E600 0) !important;
 }
 .inventorySlot h1{
 	text-align: left;
@@ -167,15 +169,16 @@ nav a:first-letter{
 .inventorySlot button{
 	height:2rem !important;
 	width:4rem !important;
-	border-color:var(--textCol) !important;
 	color:var(--textCol) !important;
-	background-color: var(--bgColContent) !important;
+	border: none;
 	display: block !important;
 	text-align: center !important;
+	background:linear-gradient(-45deg, transparent 5px, var(--bgColContent) 0) !important;
 }
 .inventorySlot button:hover{
-	background-color:var(--textCol) !important;
+	
 	color:var(--bgCol) !important;
+	background:linear-gradient(-45deg, transparent 5px, var(--textCol) 0) !important;
 }
 .inventoryName{
 	background-color:transparent !important;
@@ -190,6 +193,7 @@ form, .admin{
 	gap: 1rem;
 	background-color:var(--bgColContent);	
 	margin:2rem auto;
+	background:linear-gradient(-45deg, transparent 20px, var(--bgColContent) 0) !important;
 	
 }
 form input, form textarea, form output, .productButton, #addProductButton{
@@ -221,6 +225,7 @@ form textarea {
 	background-color:var(--themeColContent);
 	color: var(--textCol);
 	text-align: center;
+	height: 1.4em;
 }
 
 #enter, label{
@@ -243,8 +248,7 @@ form img{
 	width:3rem;
 	height:3rem;
 	background-color: var(--bgCol);
-	border-radius:.5rem;
-	border:0.1rem solid var(--borderCol);
+
 }
 
 .admin output, #userList, #productList{

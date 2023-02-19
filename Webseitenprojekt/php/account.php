@@ -1,12 +1,12 @@
 <?php
 	//Eingaben validieren ----------------------------------------------------------------------
-	function isValidPassword( $password ){
-	 
-    if( !preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{10,}$/", $password ))	
+	function isValidPassword( $password ){	//Hier wird geschaut ob das Passwort den Anforderungen entspricht.
+    if( !preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{10,}$/", $password ))	//Erfüllt das passwort die voraussetzungen von:
+	// mindestens 1 groß, 1 klein Buchstaben, 1 Zahl und 1 Sonderzeichen NICHT!
 	{		
-		//wenn s kein match mit derm user passwort gibt
-		userMessage('Bitte gib gültiges Password an!');
-		return false;
+		//wenn es kein match mit derm user passwort gibt
+		userMessage('Bitte gib gültiges Password an!');	//Nachricht an Nutzer.
+		return false;									//es wird false zurückgegeben.
 	}	
 	return true;
 }
