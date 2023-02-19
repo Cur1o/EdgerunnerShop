@@ -48,8 +48,7 @@
     function GetShopInventory($shopID){ //Wird nachdem überprüft wurde ob oder welcher schop geöfnet ist unten im dokument aufgerufen.
         $conn = dbConnect();            //Datenbankverbindung wird aufgebaut    
         try{
-            $query = $conn->prepare('SELECT productId, id FROM user_resources 
-                                     WHERE user_resources.userId = ?');     //
+            $query = $conn->prepare('SELECT productId, id FROM user_resources WHERE user_resources.userId = ?');     //
             $query->bindParam( 1, $shopID, PDO::PARAM_INT );                //
             $query->execute();                                              //
             if($data = $query->fetchAll(PDO::FETCH_ASSOC)){                 //
@@ -88,7 +87,7 @@
             $query->bindParam( 2, $slotID, PDO::PARAM_INT );            //Prepared Statment für Sicherheit Die slot id des zu enderdem Slots wird übergeben.
             $query->execute();                                          //Die datenbankänderung wird ausgeführt.
             RemoveUserCoins($price);                                    //Metode zum Coins abziehen in accaunt.php wird aufgerufen. Der preis wird übergeben.
-            $coinsvalue = $_SESSION['EdgeCoins'];                       //Coins Value wiird gesetzt        
+            $coinsvalue = $_SESSION['EdgeCoins'];                       //Coins Value        
         }catch(Exception $e){                                           //Wenn die Datenbankverbindung fehlschlägt.
             userMessage('Es ist Fehler aufgetreten'.$e->getMessage());  //Fehlerausgabe an den Nutzer.
             $conn=null;                                                 //Datenbankverbindung wird getrennt.
@@ -126,9 +125,9 @@
                 $slotID = $_POST['slotID'];
                 $price = $_POST['price'];
                 if ($_POST['isShop'] == 0 )                 
-                sellItem($slotID,$price);                    
-                elseif($_SESSION['EdgeCoins'] >= $price)    // Dass der Spieler wenn er ztu wenig münzen hat auch nichtsmehr kaufen kann
-                buyItem($slotID,$price);                    // wenn die gesendete slot id von einem shop kommt
+                sellItem($slotID,$price);                   
+                elseif($_SESSION['EdgeCoins'] >= $price)    
+                buyItem($slotID,$price);                    
                 else
                 {
                 ?>
