@@ -144,7 +144,6 @@ nav a:first-letter{
 }
 .inventorySlot > :last-child{
 	margin-left:auto;
-	/* justify-self: right !important; */
 }
 .inventorySlot:hover{
 	scale: 1.1 !important;
@@ -171,7 +170,12 @@ nav a:first-letter{
 	border-color:var(--textCol) !important;
 	color:var(--textCol) !important;
 	background-color: var(--bgColContent) !important;
+	display: block !important;
 	text-align: center !important;
+}
+.inventorySlot button:hover{
+	background-color:var(--textCol) !important;
+	color:var(--bgCol) !important;
 }
 .inventoryName{
 	background-color:transparent !important;

@@ -16,6 +16,7 @@
                 $description = $data[0]['description']; //Die beschreibung aus der datenbank wird gespeichert
                 $image = $data[0]['image']; //der dateipfad zu den bildern aus der Datenbank wird gespeichert
                 $price = $data[0]['price']; //der Preis aus der Datenbank wird gespeichert
+                $sellprice = $price/2;
                 $damage = $data[0]['damage']; //der Schaden / der schutz und die effectdauer werden in damage gespeichert
                 //Aufbau des inventar slots der im Invebntar angezeigt wird
                 echo 
@@ -40,7 +41,7 @@
                         <input type='hidden' name='slotID' value='$slotID'>
                         <input type='hidden' name='isShop' value='0'>
                         <input type='hidden' name='price' value='$sellprice'>
-                        <button type='submit' class='inventorySlot'>-</button>  
+                        <button type='submit' class='inventorySlot'>+$</button>  
                     ";}
                 echo"</div>
                     </form>";
