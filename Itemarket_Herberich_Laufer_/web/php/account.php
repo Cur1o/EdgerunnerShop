@@ -5,7 +5,7 @@
     if( !preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{10,}$/", $password ))	//Überprüft ob das passwort den Anforderungen entspricht.
 	{		
 		//wenn s kein match mit derm user passwort gibt.
-		userMessage('Bitte gib gültiges Password an!');
+		userMessage('Bitte gib gültiges Password an!');	//
 		return false;
 	}	
 	return true;
@@ -122,7 +122,7 @@
 				$conn = null;	//Datenbankverbindung wird getrennt.
 				return false;	//es wird false zurückgegeben.
 			}
-		}catch (Exception $e){	//Falls die datenbankverbindung fehlschlägt.
+		}catch (Exception $e){	//Falls die Datenbankverbindung fehlschlägt.
 			userMessage('Es ist Fehler aufgetreten'.$e->getMessage());	//Dem nutzer wird ein Fehler ausgegeben.
 			$conn = null;	//Datenbankverbindung wird getrennt.
 			return false;	//Es wird false zurückgegeben
@@ -133,24 +133,23 @@
 	// Überprüfung ob der nick einmalig ist der eingegeben wurde.
 	function nickIsUnique($nick){
 		$conn = dbConnect();	//verbindung zur Datenbank wird aufgebaut über deine function in init.php.
-
 		try{
 			$query = $conn->prepare('SELECT id FROM users WHERE nick = ? ;');
-			$query->bindParam(1, $nick, PDO::PARAM_STR);
-			$query->execute();
+			$query->bindParam(1, $nick, PDO::PARAM_STR);	//Prepared statment für den spieler nick.
+			$query->execute();								//Datenbankabfrage wird ausgeführt.
 
-			if($query->rowCount() > 0){
-				userMessage("Dieser Nickname wird bereits verwendet");
-				$conn = null;
-				return false;
+			if($query->rowCount() > 0){	//Wenn ein Datenbsatz zurückgegeben wird.
+				userMessage("Dieser Nickname wird bereits verwendet");	//Fehlerausgabe an den Nutzer
+				$conn = null;	//Datenbankverbindung wird getrennt.
+				return false;	//Es wird false zurückgegeben.
 			}
-		}catch (Exception $e){
-			userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
-			$conn = null;
-			return false;
+		}catch (Exception $e){	//Wenn die Datenbankverbindung fehlschlägt.
+			userMessage('Es ist Fehler aufgetreten'.$e->getMessage());	//Fehlerausgabe an den Nutzer
+			$conn = null;	//Datenbankverbindung wird getrennt.
+			return false;	//Es wird false zurückgegeben.
 		}
-		$conn = null;
-		return true;
+		$conn = null;	//Datenbankverbindung wird getrennt.
+		return true;	//Es wird false zurückgegeben.
 	}
 
 	function logout(){
