@@ -1,3 +1,4 @@
+/*variablen die anstelle von anstelle von Farbwerten bei den jeweiligen Pseudoklassen eingegeben werden. Zur Besseren Übersicht */
 :root{
 	--bgColContent: #ff000091;
 	--themeColContent: #ff00008c;
@@ -6,7 +7,9 @@
 	--linkCol:#c63927;
 	--borderCol: rgb(0, 0, 0);
 	--hoverCol:#00ffffba;
+	--warning:#ff00008c;
   }
+  /*eigene Schriftarten*/
   @font-face {
 	  font-family: 'cyberpunk';
 	  src: url('fonts/cyberpunk.otf');
@@ -16,7 +19,7 @@
 	  font-family: 'normalLetters';
 	  src: url('fonts/normal.otf');
   }
-  
+  /* Browserunabhängige Anpassung, da manche Browser andere Standardansichten haben */
   *{
 	  margin:0;
 	  padding:0;
@@ -26,7 +29,7 @@
   }
   
   body{
-	  font-family: 'normalLetters','cyberpunk', tahoma, sans-serif, Arial ;
+	  font-family: 'normalLetters','cyberpunk', tahoma, sans-serif, Arial ; /*Einbindung der eigenen Schriftart und Fallback*/
 	  background-color:var(--bgCol);
   }
   h2{
@@ -63,7 +66,7 @@
   }
   #HomepageName
   {
-	  color:#F3E600;
+	  color:var(--textCol);
 	  font-family: 'cyberpunk',Arial;
 	  font-size:2rem;
   }
@@ -294,8 +297,8 @@
 }
 
 .warning{
-   color:red;
-   border-color:red;
+   color:var(--warning);
+   border-color:var(--warning);
 }
 
 #addProductButton, #product input[type="submit"] {
