@@ -151,7 +151,6 @@
 	  background:linear-gradient(-45deg, transparent 10px, var(--hoverCol) 0) !important;
   }
   .inventorySlot img{
-	  background-color: rgb(0, 229, 255)!important;
 	  width:auto;
 	  height:6vh;
 	  background:linear-gradient(-45deg, transparent 10px, #F3E600 0) !important;
