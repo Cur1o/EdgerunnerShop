@@ -194,7 +194,6 @@ form, .admin{
 	background-color:var(--bgColContent);	
 	margin:2rem auto;
 	background:linear-gradient(-45deg, transparent 20px, var(--bgColContent) 0) !important;
-	
 }
 form input, form textarea, form output, .productButton, #addProductButton{
 	border-radius: 0.3rem;

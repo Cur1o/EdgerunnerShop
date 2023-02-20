@@ -1,25 +1,25 @@
 <?php
   require_once('PHP/init.php');
   require_once('PHP/account.php');
-
-  if(isset($_POST['button500'])) AddUserCoin(500);
-  if(isset($_POST['button1000'])) AddUserCoin(1000);
-  if(isset($_POST['button2000'])) AddUserCoin(2000);
-  if(isset($_POST['button4000'])) AddUserCoin(4000);
-  if(isset($_POST['button10000'])) AddUserCoin(10000);
+  //Die folgenden methodendefinition befindet sich in accaunt.php.
+  if(isset($_POST['button500'])) AddUserCoin(500);      //Dem Spieler werden nach druck auf den Button in coinsWindow.php 500 Coins hinzugefügt.
+  if(isset($_POST['button1000'])) AddUserCoin(1000);    //Dem Spieler werden nach druck auf den Button in coinsWindow.php 1000 Coins hinzugefügt.
+  if(isset($_POST['button2000'])) AddUserCoin(2000);    //Dem Spieler werden nach druck auf den Button in coinsWindow.php 2000 Coins hinzugefügt.
+  if(isset($_POST['button4000'])) AddUserCoin(4000);    //Dem Spieler werden nach druck auf den Button in coinsWindow.php 4000 Coins hinzugefügt.
+  if(isset($_POST['button10000'])) AddUserCoin(10000);  //Dem Spieler werden nach druck auf den Button in coinsWindow.php 10000 Coins hinzugefügt.
 
   //Frontend actions
-  //register
-  if(isset($_POST['enter']) && $_POST['enter']== 'Register')
+  //registrieren
+  if(isset($_POST['enter']) && $_POST['enter']== 'Register')          //
     if(isValidNick($_POST['nick']) && isValidEmail($_POST['email']))
       register(strip_tags($_POST['nick']), strip_tags($_POST['email']), strip_tags($_POST['password']));
 
-  //login
+  //einloggen
   if(isset($_POST['enter']) && $_POST['enter'] == 'Login')
     if(isValidNick( $_POST['nick']))
       login( strip_tags($_POST['nick']), strip_tags($_POST['password']) );
 
-  //logout
+  //ausloggen
   if( isset($_GET['action'] ) && $_GET['action'] == "logout" )
     logout();
 
@@ -50,7 +50,7 @@
     <?php
       //Wenn die acces session variable gesetzt wurde und diese dem user oder dem Admin zugeortnet ist.
       if(isset($_SESSION['access']) && ($_SESSION['access'] == "user" || $_SESSION['access'] == "admin")){ 
-        include 'PHP/PHP_Forms/accountOverviewWindow.php'; // Dis Profilübersicht wird geladen
+        include 'PHP/PHP_Forms/accountOverviewWindow.php';// Dis Profilübersicht wird geladen
         if(($_GET['action'] != 'coins'))
           include 'PHP/PHP_Forms/playerInventory.php'; //Das spieler inventar wird geladen
         if($_SESSION['currentshopID'] != -1)
