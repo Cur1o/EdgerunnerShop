@@ -1,20 +1,20 @@
 <?php
 	//Eingaben validieren ----------------------------------------------------------------------
-	function isValidPassword( $password ){//Es wird überprüft ob das vom nutzer eiungegebene passwort den mindestanforderungen entspricht.
+	function isValidPassword( $password ){//Es wird überprüft ob das vom Nutzer eingegebene Passwort den Mindestanforderungen entspricht.
 	 
     if( !preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{10,}$/", $password ))	//Überprüft ob das passwort den Anforderungen entspricht.
 	{		
-		//wenn s kein match mit derm user passwort gibt.
+		//wenn es kein match mit dem Nutzer-Passwort gibt.
 		userMessage('Bitte gib gültiges Password an!');	//
 		return false;
 	}	
 	return true;
 }
-	function isValidNick($nick){	//Überprüfung ob der nick verfügbar ist.
+	function isValidNick($nick){	//Überprüfung ob der Nick verfügbar ist.
 		if(empty($nick))			//wenn es leer ist.
 		{
-			//dem nutzer wird eine Nachricht ausgegeben dass er das richtige format für einen Namen verwenden soll.
-			userMessage('Bitte gib gültigen Nick an!');	//Nachricht an den nutzer
+			//dem Nutzer wird eine Nachricht ausgegeben dass er das richtige format für einen Namen verwenden soll.
+			userMessage('Bitte gib gültigen Nick an!');	//Nachricht an den Nutzer
 			return false;	//Es wird false zurückgegeben
 		}
 		return true;		//Es wird true zurückgegeben
@@ -23,13 +23,13 @@
 	function isValidEmail( $email ){
 		if( !filter_var( $email, FILTER_VALIDATE_EMAIL) )	//Es wird überprüft ob das vom Nutzer eigegebene, nicht der form einer e-mail entspricht.
 		{
-			//Dem nutzer wir benachrichtigt eine email einzugeben.
+			//Dem nutzer wir benachrichtigt eine Email einzugeben.
 			userMessage('Bitte gib eine Email Adresse ein!');
 			return false;
 		}
 		return true;
 	}
-	//Eingabe veledieren ende -------------------------------------------------------------------
+	//Eingabe validieren ende -------------------------------------------------------------------
 
 	//Login und Register Methoden----------------------------------------------------------------
 
@@ -60,27 +60,27 @@
 	}
 
 	//Login
-	function login($nick, $password){	//es werden die von nutzer eigegebenen variablen angenummen.
-		$conn = dbConnect();			//verbindung zur Datenbank wird aufgebaut über deine function in init.php.
+	function login($nick, $password){	//es werden die vom Nutzer eigegebenen Variablen angenommen.
+		$conn = dbConnect();			//verbindung zur Datenbank wird aufgebaut über die function in init.php.
 		try{	
 			$query = $conn->prepare('SELECT  id, nick, userpassword, access, EdgeCoins FROM users Where nick = ?');// ein sql befehl wird an die Datenbank gesendet.
-			$query->bindParam(1, $nick, PDO::PARAM_STR);	//es wird versucht den nick namen aus der datenbank zu hohlen.    											   
-			$query->execute(); 								//die querry abfrage wird ausgeführt.        										   
+			$query->bindParam(1, $nick, PDO::PARAM_STR);	//es wird versucht den Nutzernamen aus der Datenbank zu hohlen.    											   
+			$query->execute(); 								//die query Abfrage wird ausgeführt.        										   
 		}
-		catch(Exception $e){	//wenn der Name nicht gefunden wurde wird der spieler darüber benachrichtigt.
+		catch(Exception $e){	//wenn der Name nicht gefunden wurde wird der Spieler darüber benachrichtigt.
 			userMessage('Es ist Fehler aufgetreten'.$e->getMessage());
 		}
 		
 		if($data = $query->fetch(PDO::FETCH_ASSOC)){
-			if(password_verify($password, $data['userpassword'])){						//überprüft ob ein paswort mit dem hash übereinstimmt.
-				if(password_needs_rehash( $data['userpassword'], PASSWORD_DEFAULT)){	//vergleicht onb das passwort einen neuen hash  braucht und gibt die hash methode an.
+			if(password_verify($password, $data['userpassword'])){						//überprüft ob ein Passwort mit dem hash übereinstimmt.
+				if(password_needs_rehash( $data['userpassword'], PASSWORD_DEFAULT)){	//vergleicht ob das Passwort einen neuen hash braucht und gibt die hash methode an.
 					try{
-						$query = $conn->prepare('UPDATE users SET userpassword = ? WHERE nick = ?;');	// verbindet sich mit demn passwort in der Datenbank um dieses im folgenden zu ändern.					
-						$query->bindParam(1, $newPasswordHash, PDO::PARAM_STR);	//Prepared statment für den neuen passworthash.						 				
-						$query->bindParam(2, $nick, PDO::PARAM_STR);			//Prepared statment für den spieler nick.							
+						$query = $conn->prepare('UPDATE users SET userpassword = ? WHERE nick = ?;');	// verbindet sich mit demn Passwort in der Datenbank um dieses im folgenden zu ändern.					
+						$query->bindParam(1, $newPasswordHash, PDO::PARAM_STR);	//Prepared statment für den neuen Passworthash.						 				
+						$query->bindParam(2, $nick, PDO::PARAM_STR);			//Prepared statment für den Spielername.							
 						$query->execute();										//Datenbankänderung ausführen.
-					}catch(Exception $e){	//Wenn bei der verbindung ein fehler auftritt.
-						userMessage('Es ist Fehler aufgetreten'.$e->getMessage());	//Fehlerausgabe an den nutzer.
+					}catch(Exception $e){	//Wenn bei der Verbindung ein Fehler auftritt.
+						userMessage('Es ist Fehler aufgetreten'.$e->getMessage());	//Fehlerausgabe an den Nutzer.
 						$conn=null;		//Datenbankverbindung wird getrennt.
 						return false;	//Es wird false zurückgegeben.
 					}
@@ -89,13 +89,13 @@
 
 				//logged in 
 				//die Daten aus der Datenbank werden in die Sessin geschrieben---------------------------------------------
-				$_SESSION['nick'] = $data['nick'];			//Daten für den nick namen.
-				$_SESSION['access'] = $data['access'];		//Daten für den zugang.
+				$_SESSION['nick'] = $data['nick'];			//Daten für den nick-Namen.
+				$_SESSION['access'] = $data['access'];		//Daten für den Zugang.
 				$_SESSION['id'] = $data['id'];				//Daten für die player Id.
 				$_SESSION['EdgeCoins']= $data['EdgeCoins'];	//Daten für die EdgeCoins.
-				$_SESSION['currentshopID'] = 0;				//Daten für die aktuelle shop id.(welcher shop gerade geöfnet ist.)
+				$_SESSION['currentshopID'] = 0;				//Daten für die aktuelle shop id.(welcher Shop gerade geöfnet ist.)
 
-				$conn = null;	//verbindung wird aufgelöst varable.
+				$conn = null;	//Verbindung wird aufgelöst Variable.
 				return true;	//es wird true zurückgegeben.								
 			}else{	//Passwort oder Nick falsch.
 				userMessage('Deine Eingaben sind falsch');	//Hier keine genauen Informationen rausgeben.
@@ -113,7 +113,7 @@
 		$conn = dbConnect();	//verbindung zur Datenbank wir aufgebaut.
 		try{
 			
-			$query = $conn->prepare('SELECT id FROM users WHERE email = ? ;');	//Überprüfung ob die email bereits schonmal verweindet wurde.
+			$query = $conn->prepare('SELECT id FROM users WHERE email = ? ;');	//Überprüfung ob die email bereits schonmal verwendet wurde.
 			$query->bindParam(1, $email, PDO::PARAM_STR);	//Prepared statment für die email.
 			$query->execute();								//Datenbankabfrage wird ausgeführt.
 
@@ -153,9 +153,9 @@
 	}
 
 	function logout(){
-		include_once 'PHP_Forms/traderInventoryRefill.php';	//trader inventory refill wird includet um ie methode whipeTrader aufzurufen.
-		for ($i=1; $i < 4; $i++) { 	//Alle shops werden resetet und neu bestückt beim auslogen
-			whipeTrader($i);					//Alle tradere werden zurückgesetzt.
+		include_once 'PHP_Forms/traderInventoryRefill.php';	//trader inventory refill wird includiert um die Methode whipeTrader aufzurufen.
+		for ($i=1; $i < 4; $i++) { 	//Alle shops werden resetet und neu bestückt beim ausloggen
+			whipeTrader($i);					//Alle trader werden zurückgesetzt.
 		}
 		unset( $_SESSION['nick'] );				//Die Session Variable nick wird gelöscht/geleert.
 		unset( $_SESSION['access'] );			//Die Session Variable access wird gelöscht/geleert.
@@ -176,7 +176,7 @@
 			$query->bindParam(2,$_SESSION['id'], PDO::PARAM_STR);	//prepared statment für die spieler session id.
 			$query->execute();										//Datenbankänderung wird ausgeführt.
 		}catch(Exception $e){	//Falls die Datenbankverbindung fehlschlägt
-			userMessage('Es ist Fehler aufgetreten'.$e->getMessage());	//Fehlerausgabe an den nutzer
+			userMessage('Es ist Fehler aufgetreten'.$e->getMessage());	//Fehlerausgabe an den Nutzer
 			$conn = null;	//Datenbankverbindung trennen.
 			return false;	//Es wird false zurückgegeben.
 		}

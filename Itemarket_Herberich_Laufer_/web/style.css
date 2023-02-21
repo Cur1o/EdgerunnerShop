@@ -1,4 +1,4 @@
-/*variablen die anstelle von anstelle von Farbwerten bei den jeweiligen Pseudoklassen eingegeben werden. Zur Besseren Übersicht */
+/*Variablen die statt Farbwerten bei den jeweiligen Pseudoklassen eingegeben werden. Zur Besseren Übersicht */
 :root{
 	--bgColContent: #ff000091;
 	--themeColContent: #ff00008c;
@@ -72,7 +72,7 @@
   }
   
   /* Style for the Buy coins window */
-  /* Damit die Artikel nebeneinander angeortnet werden */
+  /* Damit die Artikel nebeneinander angeordnet werden */
   #coinsWindowArticle{
 	  display:flex !important;
 	  flex-direction: row !important;
@@ -90,13 +90,13 @@
 	  background:linear-gradient(-45deg, transparent 25px, var(--bgColContent) 0) !important;
 	  
   }
-  /* wenn über die karten felder gehovert wird */
+  /* wenn über die Kartenfelder gehovert wird */
   #coinsWindowArticle form:hover{
 	  scale: 1.05 !important;
 	  background:linear-gradient(-45deg, transparent 25px, var(--hoverCol) 0) !important;
   
   }
-  /* Für den Betrag unter den Felden */
+  /* Für den Betrag unter den Feldern */
   #coinsWindowArticle .realMoney{
 	  display:block;
 	  align-self: center;	
@@ -109,7 +109,7 @@
   }
   /* end of style from coins window */
   
-  /* Startt of Player Inventory */
+  /* Start of Player Inventory */
   .playerInventoryFrame{
 	  width:100vw !important;
 	  height:60vh !important;

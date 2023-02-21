@@ -3,21 +3,21 @@
 	error_reporting(0);	//Fehlerausgabe blockieren 
 
 	function dbConnect(){
-		$host = 'localhost';		//der aktuelle host der auf die Datenbank zugreifen will
-		$dbname ='db_cybershop';	//Der name der Datenbank
-		$user = 'root';				//Der nutzer der auf die datanban zu greift
+		$host = 'localhost';		//der aktuelle Host der auf die Datenbank zugreifen will
+		$dbname ='db_cybershop';	//Der Name der Datenbank
+		$user = 'root';				//Der Nutzer der auf die Datenbank zu greift
 		$pass = '';					
 		
 		try{
 			$DB = new PDO("mysql:host=".$host."; dbname=".$dbname.";", $user, $pass);	//Datenbankverbindung wird aufgebaut
-			$DB->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );				//Atrebute zur fehlerausgabe werden gesetzt.
-			return $DB;					//Die Datenbank wird zuückgegeben.
+			$DB->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );				//Attribute zur Fehlerausgabe werden gesetzt.
+			return $DB;					//Die Datenbank wird zurückgegeben.
 		}catch( PDOException $error){	//Wenn die Datenbankverbindung nicht funktioniert.
-			die("Sorry ein Fehler ist aufgetreten, prüfen Sie Ihre Internetverbindung.Error:".$error);	//fehlerausgabe an den nutzer 
+			die("Sorry ein Fehler ist aufgetreten, prüfen Sie Ihre Internetverbindung.Error:".$error);	//Fehlerausgabe an den Nutzer 
 		}
 	}
 
-	function isAuthorized(){	//ob den nutzer autoresiert ist sich anzumelden.
+	function isAuthorized(){	//ob den Nutzer autorisiert ist sich anzumelden.
 		return (isset($_SESSION['nick']) && isset($_SESSION['access']) && ($_SESSION['access'] != 'locked'));
 	}
 
@@ -27,10 +27,10 @@
 
 	//User messages------------------------------------------------------------------------------
 
-	if(!isset($_SESSION['userMessage']))//Wenn in user mesage ein wert gesetzt wurde wird dieser mit einem leeren string ersetzt
-		$_SESSION['userMessage']="";	//Session Variable wird dur einen leeren string ersetzt.
+	if(!isset($_SESSION['userMessage']))//Wenn in user message ein Wert gesetzt wurde wird dieser mit einem leeren String ersetzt
+		$_SESSION['userMessage']="";	//Session Variable wird durch einen leeren String ersetzt.
 
-	function userMessage( $message ){				//Die function wird oft aufgerufen um dem nutzer einen fehler auszugeben.
-		$_SESSION['userMessage'] .= "$message<br>";	//nach der geschriebenen Nachricht wird ein zeilenumbruch geschrieben
+	function userMessage( $message ){				//Die function wird oft aufgerufen um dem Nutzer einen Fehler auszugeben.
+		$_SESSION['userMessage'] .= "$message<br>";	//nach der geschriebenen Nachricht wird ein Zeilenumbruch geschrieben
 	}
 ?>
