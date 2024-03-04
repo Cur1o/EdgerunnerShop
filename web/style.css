@@ -1,0 +1,334 @@
+/*Variablen die statt Farbwerten bei den jeweiligen Pseudoklassen eingegeben werden. Zur Besseren Übersicht */
+:root{
+	--bgColContent: #ff000091;
+	--themeColContent: #ff00008c;
+	--textCol:#F3E600;
+	--bgCol:rgb(0, 0, 0);
+	--linkCol:#c63927;
+	--borderCol: rgb(0, 0, 0);
+	--hoverCol:#00ffffba;
+	--warning:#ff00008c;
+  }
+  /*eigene Schriftarten*/
+  @font-face {
+	  font-family: 'cyberpunk';
+	  src: url('fonts/cyberpunk.otf');
+	   
+  }
+  @font-face {
+	  font-family: 'normalLetters';
+	  src: url('fonts/normal.otf');
+  }
+  /* Browserunabhängige Anpassung, da manche Browser andere Standardansichten haben */
+  *{
+	  margin:0;
+	  padding:0;
+  }
+  ::-webkit-scrollbar {
+	  display: none;
+  }
+  
+  body{
+	  font-family: 'normalLetters','cyberpunk', tahoma, sans-serif, Arial ; /*Einbindung der eigenen Schriftart und Fallback*/
+	  background-color:var(--bgCol);
+  }
+  h2{
+	  color:var(--linkCol);
+  }
+  nav{
+	  background-color:var(--bgCol);
+	  position:fixed;
+	  z-index: 4 ;
+	  left: 0;
+	  right: 0;
+	  top: 0;
+	  display:flex;
+	  align-items:baseline;
+	  justify-content: space-between;
+	  gap:2rem;
+	  padding:0.5rem;
+	  font-family: 'normalLetters','cyberpunk',Arial;
+	  font-size:1.2rem;
+  }
+  nav a{
+	  padding:.5rem;
+	  text-decoration:none;
+	  color:var(--linkCol);
+	  
+	  font-weight: 900;
+  }
+  nav a:hover, #HomepageName:hover{
+	  color :var(--hoverCol);
+  }
+  
+  nav a:first-letter{
+	  font-size:1.7rem;
+  }
+  #HomepageName
+  {
+	  color:var(--textCol);
+	  font-family: 'cyberpunk',Arial;
+	  font-size:2rem;
+  }
+  
+  /* Style for the Buy coins window */
+  /* Damit die Artikel nebeneinander angeordnet werden */
+  #coinsWindowArticle{
+	  display:flex !important;
+	  flex-direction: row !important;
+	  width:auto !important;
+	  height:80vh !important;
+	  align-content: space-between;
+	  margin: 2rem 4rem;
+	  background-color: none;
+  }
+  /* Die Einstellung der Größe der forms */
+  #coinsWindowArticle form{
+	  height:512px !important;
+	  width: 256px !important;
+	  transition: all .2s ease-in-out;
+	  background:linear-gradient(-45deg, transparent 25px, var(--bgColContent) 0) !important;
+	  
+  }
+  /* wenn über die Kartenfelder gehovert wird */
+  #coinsWindowArticle form:hover{
+	  scale: 1.05 !important;
+	  background:linear-gradient(-45deg, transparent 25px, var(--hoverCol) 0) !important;
+  
+  }
+  /* Für den Betrag unter den Feldern */
+  #coinsWindowArticle .realMoney{
+	  display:block;
+	  align-self: center;	
+	  color:var(--textCol);
+  }
+  /* Größe der Bilder wird gesetzt */
+  #coinsWindowArticle form input{
+	  height:512px !important;
+	  width: 256px !important;
+  }
+  /* end of style from coins window */
+  
+  /* Start of Player Inventory */
+  .playerInventoryFrame{
+	  width:100vw !important;
+	  height:60vh !important;
+	  display: flex !important;
+	  flex-direction:row !important;
+	  justify-content:center !important;
+	  align-self: center !important;
+	  z-index:0 !important;
+	  
+  }
+  .inventorySlotContainer{
+	  background-color: var(--bgColContent) !important;
+	  width:40vw !important;
+	  height:50vh !important;
+	  z-index:1;
+	  margin:2rem;
+	  display:flex !important;
+	  flex-direction:column;
+	  overflow-y: scroll !important;
+	  scrollbar-width: none;
+	  background:linear-gradient(-45deg, transparent 20px, var(--bgColContent) 0) !important;
+	  
+  }
+  .inventorySlot{
+	  width:35vw !important;
+	  height:6vh !important;
+	  display:flex !important;
+	  flex-direction:row !important; 
+	  justify-content:left !important;
+	  align-content: baseline;
+	  margin : 1rem auto !important;
+	  z-index:2 !important;
+	  transition: all .2s ease-in-out;
+	  background:linear-gradient(-45deg, transparent 10px, var(--bgColContent) 0) !important;
+  }
+  .inventorySlot > :last-child{
+	  margin-left:auto;
+  }
+  .inventorySlot:hover{
+	  scale: 1.05 !important;
+	  background-color: var(-) !important;
+	  background:linear-gradient(-45deg, transparent 10px, var(--hoverCol) 0) !important;
+  }
+  .inventorySlot img{
+	  width:auto;
+	  height:6vh;
+	  background:linear-gradient(-45deg, transparent 10px, #F3E600 0) !important;
+  }
+  .inventorySlot h1{
+	  text-align: left;
+	  color:var(--textCol) !important;
+	  background-color:transparent !important;
+  
+  }
+  .inventorySlot p{
+	  text-align: left;
+	  color:var(--textCol) !important;
+  }
+  .inventorySlot button{
+	  height:2rem !important;
+	  width:4rem !important;
+	  color:var(--textCol) !important;
+	  border: none;
+	  display: block !important;
+	  text-align: center !important;
+	  background:linear-gradient(-45deg, transparent 5px, var(--bgColContent) 0) !important;
+  }
+  .inventorySlot button:hover{
+	  
+	  color:var(--bgCol) !important;
+	  background:linear-gradient(-45deg, transparent 5px, var(--textCol) 0) !important;
+  }
+  .inventoryName{
+	  background-color:transparent !important;
+  }
+  /* End of Player Inventory */
+  
+  form, .admin{
+	  display:flex;
+	  flex-direction: column;
+	  width: 50vw;
+	  padding: 1rem;
+	  gap: 1rem;
+	  background-color:var(--bgColContent);	
+	  margin:2rem auto;
+	  background:linear-gradient(-45deg, transparent 20px, var(--bgColContent) 0) !important;
+  }
+  form input, form textarea, form output, .productButton, #addProductButton{
+	  border-radius: 0.3rem;
+	  border:none;
+	  height:1.5rem;
+  }
+  
+  [type="submit"], .productButton, #addProductButton{
+	   font-weight:bold;
+	   height:2rem;
+	   padding:0.5rem;
+  }
+  
+  .productButton{
+	 width:9rem;
+  }
+  
+  #addProductButton
+  {
+	display: none;
+  }
+  
+  form textarea {
+	  height:5rem;
+  }
+  
+  #enter, h1 {
+	  background-color:var(--themeColContent);
+	  color: var(--textCol);
+	  text-align: center;
+	  height: 1.4em;
+  }
+  
+  #enter, label{
+	  font-size: 1.2rem;
+	  
+  }
+  
+  label{
+	border:none;
+	color: var(--textCol);
+  }
+  
+  
+  #logout{
+	  max-width:4rem;
+	  color: var(--textCol);
+  }
+  
+  form img{
+	  width:3rem;
+	  height:3rem;
+	  background-color: var(--bgCol);
+  
+  }
+  
+  .admin output, #userList, #productList{
+	  height:5rem;
+	  overflow-y:scroll;
+	  background-color:rgb(96, 96, 96);
+	  white-space: pre-wrap;
+  }
+  #userList, #productList{
+	  height:12rem;
+	  gap:0.2rem;
+	  display:flex;
+	  flex-direction: column;
+	  padding:1rem;
+  }
+  
+  .admin output::before{
+	  content:"Log: ";
+  }
+  
+  .admin form{
+	 width:100%;
+	
+	 background-color: transparent;
+	 padding:0;
+  
+  }
+  
+  .listRow, .itemForm{
+	  display:flex;
+	  flex-direction:row;
+	  margin:0;
+	  gap:0.2rem;
+	  border-bottom: 0.1rem solid var(--borderCol);
+  }
+  
+  .noBorder{
+	 border:none;
+  }
+  
+  
+  .itemForm input[type="text"]{
+    flex-basis: 100%;
+	
+}
+
+.warning{
+   color:var(--warning);
+   border-color:var(--warning);
+}
+
+#addProductButton, #product input[type="submit"] {
+    font-size:1.2rem;
+	height:2.2rem;
+}
+
+input[type="checkbox"]{
+	width:3rem;
+}
+
+video{
+	display: block;
+	z-index: -1;
+	width :99vw;
+	height:99vh;
+	object-fit: cover;
+  	position: fixed;
+
+
+}
+
+.coinlogo{
+	display:inline-block;
+	width: 30px; 
+	height: 30px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 40px;
+	padding-top: 20px
+}	
+	
+
